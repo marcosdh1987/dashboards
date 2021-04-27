@@ -65,9 +65,9 @@ class HomeView(View):
         plot_div6 = plot({'data': fig6, 'layout': layout}, 
                         output_type='div')
 
-        context = {'plot_div': plot_div, 'plot_div2': plot_div2
-                                ,'plot_div3': plot_div3 , 'plot_div4': plot_div4
-                                , 'plot_div5': plot_div5, 'plot_div6': plot_div6                            
+        context = {  'plot_div' : plot_div  , 'plot_div2': plot_div2
+                    ,'plot_div3': plot_div3 , 'plot_div4': plot_div4
+                    ,'plot_div5': plot_div5 , 'plot_div6': plot_div6                            
                     }                                                             
 
         return render(self.request, 'home.html', context)
