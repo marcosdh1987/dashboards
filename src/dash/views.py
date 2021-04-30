@@ -1,6 +1,9 @@
 from django.shortcuts import render
 from django.views.generic import TemplateView, ListView, DetailView, View
 from django.shortcuts import redirect
+
+from django.contrib.auth.decorators import login_required
+
 from plotly.offline import plot
 import plotly.graph_objects as go
 import plotly.express as px
@@ -13,7 +16,7 @@ import plotly.figure_factory as ff
 #    return render(request, "admin.html", {})
 
 class HomeView(View):
-
+    
     def get(self, *args, **kwargs):
         """ 
         View demonstrating how to display a graph object

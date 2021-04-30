@@ -2,6 +2,7 @@
 
 {% block content %}
 
+{% if request.user.is_authenticated %}
   <!--Main layout-->
 <main style="margin-top: 58px">
     <div class="container pt-4">
@@ -375,42 +376,32 @@
       </section>
       <!--Section: Statistics with subtitles-->
     </div>
-  </main>
+  
   <!--Main layout-->
-    <!--Pagination-->
 
-    {% if is_paginated %}
-    <nav class="d-flex justify-content-center wow fadeIn">
-      <ul class="pagination pg-blue">
-
-        {% if page_obj.has_previous %}
-        <li class="page-item">
-          <a class="page-link" href="?page={{ page_obj.previous_page_number }}" aria-label="Previous">
-            <span aria-hidden="true">&laquo;</span>
-            <span class="sr-only">Anterior</span>
+{% else %}
+<main style="margin-top: 58px">
+  <div class="container pt-4">
+    <!-- Section: Main chart -->
+    <section class="mb-4">
+      
+      <div class="card">
+        <div class="card-header py-3">
+          <h5 class="mb-0 text-center"><strong>Login</strong></h5>
+        </div>
+        <div class="card-body">
+          <a class="nav-link waves-effect" href="{% url 'account_login' %}">
+            <span class="clearfix d-none d-sm-inline-block"> Ingresar </span>
           </a>
-        </li>
-        {% endif %}
-
-        <li class="page-item active">
-          <a class="page-link" href="?page={{ page_obj.number }}">{{ page_obj.number }}
-            <span class="sr-only">(actual)</span>
-          </a>
-        </li>
-
-        {% if page_obj.has_next %}
-        <li class="page-item">
-          <a class="page-link" href="?page={{ page_obj.next_page_number }}" aria-label="Next">
-            <span aria-hidden="true">&raquo;</span>
-            <span class="sr-only">Siguiente</span>
-          </a>
-        </li>
-        {% endif %}
-      </ul>
-    </nav>
-    {% endif %}
-
-  </div>
+        </div>
+      </div>
+    </section>
+  </div>  
 </main>
+{% endif %}
+</div>
+</main>
+
+
 
 {% endblock content %}
