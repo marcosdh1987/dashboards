@@ -74,3 +74,86 @@ class HomeView(View):
                     }                                                             
 
         return render(self.request, 'home.html', context)
+
+
+class comparisonView(View):
+    
+    def get(self, *args, **kwargs):
+        """ 
+        View demonstrating how to display a graph object
+        on a web page with Plotly. 
+        """
+        import pandas as pd
+        # Get data for plots.
+
+        ds = pd.read_csv(r'\\192.168.0.7\3tdata\data_lake\shell_pad11\compared_data_full.csv',low_memory=False)
+
+        by = 'WELL Name'
+        # List of graph objects for figure.
+        # Each object will contain on series of data.
+        graphs = []
+
+
+        x = np.array([1, 2, 3, 4, 5])
+        y = np.array([1, 3, 2, 3, 1])
+
+        fig = go.Figure()
+        fig.add_trace(go.Scatter(x=ds['Time_x'], y=ds['Gas Rate m3/d'], name="Separator",
+                            line_shape='linear'))
+        fig.add_trace(go.Scatter(x=ds['Time_x'], y=ds['QgStd[m3/d]'], name="Foresite Flow",
+                            hoverinfo='text+name',
+                            line_shape='spline'))
+
+        fig.update_traces(hoverinfo='text+name', mode='lines+markers')
+        fig.update_layout(title="Gas Flow Rates", legend=dict(y=0.5, traceorder='reversed', font_size=16))
+
+        fig2 = go.Figure()
+        fig2.add_trace(go.Scatter(x=ds['Time_x'], y=ds['Oil Flow m3/d'], name="Separator",
+                            line_shape='linear'))
+        fig2.add_trace(go.Scatter(x=ds['Time_x'], y=ds['QoStd[m3/d]'], name="Foresite Flow",
+                            hoverinfo='text+name',
+                            line_shape='spline'))
+
+        fig2.update_traces(hoverinfo='text+name', mode='lines+markers')
+        fig2.update_layout(title="Oil Flow Rates",legend=dict(y=0.5, traceorder='reversed', font_size=16))
+        
+        fig3 = go.Figure()
+        fig3.add_trace(go.Scatter(x=ds['Time_x'], y=ds['Water Flow Ratem3/d'], name="Separator",
+                            line_shape='linear'))
+        fig3.add_trace(go.Scatter(x=ds['Time_x'], y=ds['QwStd[m3/d]'], name="Foresite Flow",
+                            hoverinfo='text+name',
+                            line_shape='spline'))
+
+        fig3.update_traces(hoverinfo='text+name', mode='lines+markers')
+        fig3.update_layout(title="Water Flow Rates",legend=dict(y=0.5, traceorder='reversed', font_size=16))
+        
+
+
+
+        # Setting layout of the figure.
+        layout = {
+            'title': 'Productions Flow rates',
+            'xaxis_title': 'X',
+            'yaxis_title': 'Y',
+        }
+
+        # Getting HTML needed to render the plot.
+        plot_div = plot({'data': fig, 'layout': layout}, 
+                        output_type='div')
+        plot_div2 = plot({'data': fig2, 'layout': layout}, 
+                        output_type='div')
+        plot_div3 = plot({'data': fig3, 'layout': layout}, 
+                        output_type='div')
+        """plot_div4 = plot({'data': fig4, 'layout': layout}, 
+                        output_type='div')
+        plot_div5 = plot({'data': fig5, 'layout': layout}, 
+                        output_type='div')
+        plot_div6 = plot({'data': fig6, 'layout': layout}, 
+                        output_type='div')
+"""
+        context = {  'plot_div' : plot_div  , 'plot_div2': plot_div2,
+                     'plot_div3': plot_div3
+                                              
+                    }                                                             
+
+        return render(self.request, 'home.html', context)

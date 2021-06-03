@@ -29,7 +29,7 @@ def home_view(request):
 
     # Adding linear plot of y1 vs. x.
     df = px.data.iris()
-    fig = px.scatter(ds, x=by, y="GOR", color='Meter', size='Gas Rate Sm3/d',title="Gas Oil Rate Comparison")
+    fig = px.scatter(ds, x=by, y="GOR", color='Meter', size='Gas Rate Sm3/d',title="LALALA")
     fig2 = px.scatter(ds, x=by, y="GWR", color='Meter', size='Gas Rate Sm3/d',title="Gas Water Rate Comparison")
     #fig2 = go.Box(y=ds["GOR"], x=ds[by], boxpoints=False)
     fig3 = px.box(ds2, x='pad', color='Meter', y="Gas Rate Sm3/d")
