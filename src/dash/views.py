@@ -179,34 +179,36 @@ class realtimeView(View):
         """
         import pandas as pd
         # Get data for plots.
+        import pyodbc
+        
+        server = 'daqsamsrv01.database.windows.net'
+        database = 'daqdb01'
+        username = 'marcos'
+        password = 'Asdf*123'   
+        driver= '{ODBC Driver 17 for SQL Server}'
 
-        import pandas as pd
-        from sqlalchemy import create_engine
-        # Postgres username, password, and database name
-        POSTGRES_ADDRESS = '192.168.0.7' ## INSERT YOUR DB ADDRESS IF IT'S NOT ON PANOPLY
-        POSTGRES_PORT = '5432'
-        POSTGRES_USERNAME = 'marcosdb' ## CHANGE THIS TO YOUR PANOPLY/POSTGRES USERNAME
-        POSTGRES_PASSWORD = '32922161' ## CHANGE THIS TO YOUR PANOPLY/POSTGRES PASSWORD
-        POSTGRES_DBNAME = 'mydb' ## CHANGE THIS TO YOUR DATABASE NAME
-        # A long string that contains the necessary Postgres login information
-        postgres_str = ('postgresql://{username}:{password}@{ipaddress}:{port}/{dbname}'.format(username=POSTGRES_USERNAME,
-        password=POSTGRES_PASSWORD,
-        ipaddress=POSTGRES_ADDRESS,
-        port=POSTGRES_PORT,
-        dbname=POSTGRES_DBNAME))
-        # Create the connection
-        cnx = create_engine(postgres_str)
 
-        df = pd.read_sql_query('''SELECT * FROM modbus_data''', con=cnx)
+        cnxn = pyodbc.connect('DRIVER='+driver+';SERVER='+server+';PORT=1433;DATABASE='+database+';UID='+username+';PWD='+ password)
+        cursor = cnxn.cursor()
+        # Insert Dataframe into SQL Server:
 
-        d1 = pd.pivot_table(df,values=['value'],
-                        index=['created_on'],
-                        columns=['description'], aggfunc='first')
+        query = "SELECT * FROM modbus_data"
+
+        ds = pd.read_sql(query,cnxn)
+
+        cnxn.commit()
+        cursor.close()
+
+
+        d1 = pd.pivot_table(ds,values=['value'],index=['created_on'],columns=['Description'], aggfunc='first')
 
 
         flat = pd.DataFrame(d1.to_records())
         flat.columns = [hdr.replace("('value', '", "").replace("')", "") \
                             for hdr in flat.columns]
+        mask = (flat['created_on'] > '2021-06-06 18:00:00') & (flat['created_on'] <= '2021-07-06 22:00:00')
+
+        flat = flat.loc[mask]
        
         fig = go.Figure()
         fig.add_trace(go.Scatter(x=flat['created_on'], y=flat['Qg – Standard Conditions'], name="FSF",
