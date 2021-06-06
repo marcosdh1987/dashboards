@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+{% if request.user.is_authenticated %}
+
+  <!--Main layout-->
+<main style="margin-top: 58px">
+    <div class="container pt-4">
+      <!-- Section: Main chart -->
+      <section class="mb-4">
+        
+        <div class="card">
+          <div class="card-header py-3">
+            <h5 class="mb-0 text-center"><strong>ForeSite Flow Real time Data</strong></h5>
+          </div>
+          <div class="card-body">
+            {% autoescape off %}
+            {{ plot_div }}
+            {% endautoescape %}
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-body">
+            {% autoescape off %}
+            {{ plot_div2 }}
+            {% endautoescape %}
+          </div>
+        </div>
+        <div class="card">
+            <div class="card-body">
+              {% autoescape off %}
+              {{ plot_div3 }}
+              {% endautoescape %}
+            </div>
+          </div>
+      </section>
+
+    </div>
+  <script>
+      window.setTimeout(function () {location.href = "/realtime";}, 30000); // refresh/redirect after 5 seconds.
+  </script>
+  <!--Main layout-->
+
+{% else %}
+<main style="margin-top: 58px">
+  <div class="container pt-4">
+    <!-- Section: Main chart -->
+    <section class="mb-4">
+      
+      <div class="card">
+        <div class="card-header py-3">
+          <h5 class="mb-0 text-center"><strong>Login</strong></h5>
+        </div>
+        <div class="card-body">
+          <a class="nav-link waves-effect" href="{% url 'account_login' %}">
+            <span class="clearfix d-none d-sm-inline-block"> Ingresar </span>
+          </a>
+        </div>
+      </div>
+    </section>
+  </div>  
+</main>
+{% endif %}
+</div>
+</main>
+
+
+
+{% endblock content %}
