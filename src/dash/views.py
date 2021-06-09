@@ -11,6 +11,8 @@ import plotly.express as px
 import numpy as np
 import plotly.figure_factory as ff
 
+from datetime import datetime, timedelta
+
 # Create your views here.
 #def home_view(request):
     
@@ -41,12 +43,10 @@ class dashboardView(View):
         ds2 = pd.read_csv(r'D:\OneDrive\OneDrive - WFT\Compartido\Well_Datasets\La_Calera_Pluspetrol\Post_Process\Analytics_files\df\fsf_prod.csv')
         ds3 = pd.read_csv(r'D:\OneDrive\OneDrive - WFT\Compartido\Well_Datasets\La_Calera_Pluspetrol\Post_Process\Analytics_files\df\fsf_prod_post_table.csv')
         by = 'WELL Name'
-        # List of graph objects for figure.
-        # Each object will contain on series of data.
-        graphs = []
+        
+        gas = ds['Gas Rate Sm3/d'].mean()
+        
 
-        # Adding linear plot of y1 vs. x.
-        df = px.data.iris()
         fig = px.scatter(ds, x=by, y="GOR", color='Meter', size='Gas Rate Sm3/d',title="Gas Oil Rate Comparison")
         fig2 = px.scatter(ds, x=by, y="GWR", color='Meter', size='Gas Rate Sm3/d',title="Gas Water Rate Comparison")
         #fig2 = go.Box(y=ds["GOR"], x=ds[by], boxpoints=False)
@@ -82,7 +82,8 @@ class dashboardView(View):
 
         context = {  'plot_div' : plot_div  , 'plot_div2': plot_div2
                     ,'plot_div3': plot_div3 , 'plot_div4': plot_div4
-                    ,'plot_div5': plot_div5 , 'plot_div6': plot_div6                            
+                    ,'plot_div5': plot_div5 , 'plot_div6': plot_div6
+                    ,'gas':gas                                
                     }                                                             
 
         return render(self.request, 'dashboard.html', context)
@@ -113,31 +114,27 @@ class comparisonView(View):
         fig.add_trace(go.Scatter(x=ds['Time_x'], y=ds['Gas Rate m3/d'], name="Separator",
                             line_shape='linear'))
         fig.add_trace(go.Scatter(x=ds['Time_x'], y=ds['QgStd[m3/d]'], name="Foresite Flow",
-                            hoverinfo='text+name',
                             line_shape='spline'))
 
-        fig.update_traces(hoverinfo='text+name', mode='lines+markers')
-        fig.update_layout(title="Gas Flow Rates", legend=dict(y=0.5, traceorder='reversed', font_size=16))
+        fig.update_layout(hovermode='x unified',title="Gas Flow Rates")
 
         fig2 = go.Figure()
         fig2.add_trace(go.Scatter(x=ds['Time_x'], y=ds['Oil Flow m3/d'], name="Separator",
                             line_shape='linear'))
         fig2.add_trace(go.Scatter(x=ds['Time_x'], y=ds['QoStd[m3/d]'], name="Foresite Flow",
-                            hoverinfo='text+name',
+                            
                             line_shape='spline'))
 
-        fig2.update_traces(hoverinfo='text+name', mode='lines+markers')
-        fig2.update_layout(title="Oil Flow Rates",legend=dict(y=0.5, traceorder='reversed', font_size=16))
+        fig2.update_layout(hovermode='x unified',title="Oil Flow Rates")
         
         fig3 = go.Figure()
         fig3.add_trace(go.Scatter(x=ds['Time_x'], y=ds['Water Flow Ratem3/d'], name="Separator",
                             line_shape='linear'))
         fig3.add_trace(go.Scatter(x=ds['Time_x'], y=ds['QwStd[m3/d]'], name="Foresite Flow",
-                            hoverinfo='text+name',
+                            
                             line_shape='spline'))
 
-        fig3.update_traces(hoverinfo='text+name', mode='lines+markers')
-        fig3.update_layout(title="Water Flow Rates",legend=dict(y=0.5, traceorder='reversed', font_size=16))
+        fig3.update_layout(hovermode='x unified',title="Water Flow Rates")
         
 
 
@@ -206,30 +203,33 @@ class realtimeView(View):
         flat = pd.DataFrame(d1.to_records())
         flat.columns = [hdr.replace("('value', '", "").replace("')", "") \
                             for hdr in flat.columns]
-        mask = (flat['created_on'] > '2021-06-06 18:00:00') & (flat['created_on'] <= '2021-07-06 22:00:00')
+
+        #mask = (flat['created_on'] > '2021-06-06 18:00:00') & (flat['created_on'] <= '2021-06-08 22:00:00')                    
+        
+        mask = (flat['created_on'] > (datetime.now()- timedelta(hours=5))) & (flat['created_on'] <= datetime.now())
 
         flat = flat.loc[mask]
        
         fig = go.Figure()
-        fig.add_trace(go.Scatter(x=flat['created_on'], y=flat['Qg – Standard Conditions'], name="FSF",
+        fig.add_trace(go.Scatter(x=flat['created_on'], y=flat['Qg – Standard Conditions'], name="Gas Flow Rate", text='m3/d',
                             line_shape='linear'))
 
-        fig.update_traces(hoverinfo='text+name', mode='lines+markers')
-        fig.update_layout(title="Gas Flow Rates", legend=dict(y=0.5, traceorder='reversed', font_size=16))
+        fig.update_traces(hoverinfo='name+y+text', mode='markers+lines')
+        fig.update_layout(title="Gas Flow Rates")
 
         fig2 = go.Figure()
-        fig2.add_trace(go.Scatter(x=flat['created_on'], y=flat['Qo – Standard Conditions'], name="FSF",
+        fig2.add_trace(go.Scatter(x=flat['created_on'], y=flat['Qo – Standard Conditions'], name="Oil Flow Rate", text='m3/d',
                             line_shape='linear'))
 
-        fig2.update_traces(hoverinfo='text+name', mode='lines+markers')
-        fig2.update_layout(title="Oil Flow Rates",legend=dict(y=0.5, traceorder='reversed', font_size=16))
+        fig2.update_traces(hoverinfo='name+y+text', mode='markers+lines')
+        fig2.update_layout(title="Oil Flow Rates")
         
         fig3 = go.Figure()
-        fig3.add_trace(go.Scatter(x=flat['created_on'], y=flat['Qw – Standard Conditions'], name="FSF",
+        fig3.add_trace(go.Scatter(x=flat['created_on'], y=flat['Qw – Standard Conditions'], name="Water Flow Rate", text='m3/d',
                             line_shape='linear'))
 
-        fig3.update_traces(hoverinfo='text+name', mode='lines+markers')
-        fig3.update_layout(title="Water Flow Rates",legend=dict(y=0.5, traceorder='reversed', font_size=16))
+        fig3.update_traces(hoverinfo='name+y+text', mode='markers+lines')
+        fig3.update_layout(title="Water Flow Rates")
 
 
         # Setting layout of the figure.
