@@ -1,3 +1,5 @@
 {
-    "git.ignoreLimitWarning": true
+    "git.ignoreLimitWarning": true,
+    "appService.defaultWebAppToDeploy": "/subscriptions/ef44d652-6130-4617-a123-e4aeec7d119d/resourceGroups/appsvc_linux_centralus/providers/Microsoft.Web/sites/app-dash-01",
+    "appService.deploySubpath": "."
 }

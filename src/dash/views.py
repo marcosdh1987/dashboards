@@ -212,24 +212,27 @@ class realtimeView(View):
        
         fig = go.Figure()
         fig.add_trace(go.Scatter(x=flat['created_on'], y=flat['Qg – Standard Conditions'], name="Gas Flow Rate", text='m3/d',
-                            line_shape='linear'))
+                            line_shape='linear',
+                            line=dict(color='darkgray', width=4)))
 
         fig.update_traces(hoverinfo='name+y+text', mode='markers+lines')
-        fig.update_layout(title="Gas Flow Rates")
+        fig.update_layout(title="Gas Flow Rate")
 
         fig2 = go.Figure()
         fig2.add_trace(go.Scatter(x=flat['created_on'], y=flat['Qo – Standard Conditions'], name="Oil Flow Rate", text='m3/d',
-                            line_shape='linear'))
+                            line_shape='linear',
+                            line=dict(color='darkgreen', width=4)))
 
         fig2.update_traces(hoverinfo='name+y+text', mode='markers+lines')
-        fig2.update_layout(title="Oil Flow Rates")
+        fig2.update_layout(title="Oil Flow Rate")
         
         fig3 = go.Figure()
         fig3.add_trace(go.Scatter(x=flat['created_on'], y=flat['Qw – Standard Conditions'], name="Water Flow Rate", text='m3/d',
-                            line_shape='linear'))
+                            line_shape='linear',
+                            line=dict(color='lightskyblue', width=4)))
 
         fig3.update_traces(hoverinfo='name+y+text', mode='markers+lines')
-        fig3.update_layout(title="Water Flow Rates")
+        fig3.update_layout(title="Water Flow Rate")
 
 
         # Setting layout of the figure.
