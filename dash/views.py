@@ -13,6 +13,8 @@ import plotly.figure_factory as ff
 
 from datetime import datetime, timedelta
 
+from django.contrib.staticfiles.storage import staticfiles_storage
+
 # Create your views here.
 #def home_view(request):
     
@@ -38,10 +40,18 @@ class dashboardView(View):
         """
         import pandas as pd
         # Get data for plots.
+        url = staticfiles_storage.path('ds/ds_grouped.csv')
+        url2 = staticfiles_storage.path('ds/fsf_prod.csv')
+        url3 = staticfiles_storage.path('ds/fsf_prod_post_table.csv')
 
-        ds = pd.read_csv(r'D:\OneDrive\OneDrive - WFT\Compartido\Well_Datasets\La_Calera_Pluspetrol\Post_Process\Analytics_files\df\ds_grouped.csv',low_memory=False)
-        ds2 = pd.read_csv(r'D:\OneDrive\OneDrive - WFT\Compartido\Well_Datasets\La_Calera_Pluspetrol\Post_Process\Analytics_files\df\fsf_prod.csv')
-        ds3 = pd.read_csv(r'D:\OneDrive\OneDrive - WFT\Compartido\Well_Datasets\La_Calera_Pluspetrol\Post_Process\Analytics_files\df\fsf_prod_post_table.csv')
+        #ds = pd.read_csv(r'D:\OneDrive\OneDrive - WFT\Compartido\Well_Datasets\La_Calera_Pluspetrol\Post_Process\Analytics_files\df\ds_grouped.csv',low_memory=False)
+        #ds2 = pd.read_csv(r'D:\OneDrive\OneDrive - WFT\Compartido\Well_Datasets\La_Calera_Pluspetrol\Post_Process\Analytics_files\df\fsf_prod.csv')
+        #ds3 = pd.read_csv(r'D:\OneDrive\OneDrive - WFT\Compartido\Well_Datasets\La_Calera_Pluspetrol\Post_Process\Analytics_files\df\fsf_prod_post_table.csv')
+
+        ds = pd.read_csv(url)
+        ds2 = pd.read_csv(url2)
+        ds3 = pd.read_csv(url3)
+
         by = 'WELL Name'
         
         gas = ds['Gas Rate Sm3/d'].mean()
@@ -98,8 +108,9 @@ class comparisonView(View):
         """
         import pandas as pd
         # Get data for plots.
-
-        ds = pd.read_csv(r'\\192.168.0.7\3tdata\data_lake\shell_pad11\compared_data_full.csv',low_memory=False)
+        url = staticfiles_storage.path('ds/compared_data_full.csv')
+        #ds = pd.read_csv(r'\\192.168.0.7\3tdata\data_lake\shell_pad11\compared_data_full.csv',low_memory=False)
+        ds = pd.read_csv(url)
 
         by = 'WELL Name'
         # List of graph objects for figure.
