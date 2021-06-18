@@ -24,4 +24,4 @@ urlpatterns = [
     path('accounts/', include('allauth.urls')),
     path('', include('dash.urls', namespace='home')),
     
-] 
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
