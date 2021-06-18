@@ -40,9 +40,9 @@ class dashboardView(View):
         """
         import pandas as pd
         # Get data for plots.
-        url = staticfiles_storage.path('ds/ds_grouped.csv')
-        url2 = staticfiles_storage.path('ds/fsf_prod.csv')
-        url3 = staticfiles_storage.path('ds/fsf_prod_post_table.csv')
+        url = 'static/ds/ds_grouped.csv'
+        url2 = 'static/ds/fsf_prod.csv'
+        url3 = 'static/ds/fsf_prod_post_table.csv'
 
         #ds = pd.read_csv(r'D:\OneDrive\OneDrive - WFT\Compartido\Well_Datasets\La_Calera_Pluspetrol\Post_Process\Analytics_files\df\ds_grouped.csv',low_memory=False)
         #ds2 = pd.read_csv(r'D:\OneDrive\OneDrive - WFT\Compartido\Well_Datasets\La_Calera_Pluspetrol\Post_Process\Analytics_files\df\fsf_prod.csv')
@@ -108,7 +108,8 @@ class comparisonView(View):
         """
         import pandas as pd
         # Get data for plots.
-        url = staticfiles_storage.path('ds/compared_data_full.csv')
+        #url = staticfiles_storage.path('ds/compared_data_full.csv')
+        url = 'static/ds/compared_data_full.csv'
         #ds = pd.read_csv(r'\\192.168.0.7\3tdata\data_lake\shell_pad11\compared_data_full.csv',low_memory=False)
         ds = pd.read_csv(url)
 
