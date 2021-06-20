@@ -29,6 +29,10 @@ jobs:
 
     - name: Install dependencies
       run: pip install -r requirements.txt
+    - name: make migrations  
+      run: python manage.py makemigrations
+    - name: migrate
+      run: python manage.py migrate
 
     # Optional: Add step to run tests here (PyTest, Django test suites, etc.)
 
