@@ -34,7 +34,7 @@ jobs:
     - name: migrate
       run: python manage.py migrate
     - name: collectstatic
-      run: python manage.py collectstatic
+      run: python manage.py collectstatic -y
 
     # Optional: Add step to run tests here (PyTest, Django test suites, etc.)
 
