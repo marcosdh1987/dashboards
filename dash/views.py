@@ -130,6 +130,7 @@ class comparisonView(View):
                             line_shape='spline'))
 
         fig.update_layout(hovermode='x unified',title="Gas Flow Rates")
+        
 
         fig2 = go.Figure()
         fig2.add_trace(go.Scatter(x=ds['Time_x'], y=ds['Oil Flow m3/d'], name="Separator",
@@ -180,25 +181,44 @@ class comparisonView(View):
 
         return render(self.request, 'dashboard.html', context)
 
+#SQL connections
+import pyodbc
+from sqlalchemy import create_engine
+
+#azure connection
+"""
+server = 'daqsamsrv01.database.windows.net'        
+database = 'daqdb01'
+username = 'marcos'
+password = 'Asdf*123'   
+driver= '{ODBC Driver 17 for SQL Server}'
+"""
+#postgresql connection
+# Postgres username, password, and database name
+POSTGRES_ADDRESS = '192.168.0.7' 
+POSTGRES_PORT = '5432'
+POSTGRES_USERNAME = 'marcosdb' 
+POSTGRES_PASSWORD = '32922161' 
+POSTGRES_DBNAME = 'mydb' 
+# A long string that contains the necessary Postgres login information
+postgres_str = ('postgresql://{username}:{password}@{ipaddress}:{port}/{dbname}'
+.format(username=POSTGRES_USERNAME,
+password=POSTGRES_PASSWORD,
+ipaddress=POSTGRES_ADDRESS,
+port=POSTGRES_PORT,
+dbname=POSTGRES_DBNAME))
+
+
 class realtimeView(View):
     
     def get(self, *args, **kwargs):
-        """ 
-        View demonstrating how to display a graph object
-        on a web page with Plotly. 
-        """
+        
         import pandas as pd
-        # Get data for plots.
-        import pyodbc
+        
         cur = 'realtime'
 
-        server = 'daqsamsrv01.database.windows.net'
-        database = 'daqdb01'
-        username = 'marcos'
-        password = 'Asdf*123'   
-        driver= '{ODBC Driver 17 for SQL Server}'
-
-
+        #azure connection
+        """
         cnxn = pyodbc.connect('DRIVER='+driver+';SERVER='+server+';PORT=1433;DATABASE='+database+';UID='+username+';PWD='+ password)
         cursor = cnxn.cursor()
         # Insert Dataframe into SQL Server:
@@ -209,6 +229,21 @@ class realtimeView(View):
 
         cnxn.commit()
         cursor.close()
+        """
+        #postgresql connection
+        cnx = create_engine(postgres_str)
+
+        df = pd.read_sql_query('''SELECT * FROM modbus_data''', con=cnx)
+
+        #convert data
+        d1 = pd.pivot_table(df,values=['value'],
+                index=['created_on'],
+                columns=['description'], aggfunc='first')
+
+
+        ds = pd.DataFrame(d1.to_records())
+        ds.columns = [hdr.replace("('value', '", "").replace("')", "") \
+                     for hdr in ds.columns]
 
 
         d1 = pd.pivot_table(ds,values=['value'],index=['created_on'],columns=['Description'], aggfunc='first')
@@ -218,22 +253,21 @@ class realtimeView(View):
         flat.columns = [hdr.replace("('value', '", "").replace("')", "") \
                             for hdr in flat.columns]
 
-        #mask = (flat['created_on'] > '2021-06-06 18:00:00') & (flat['created_on'] <= '2021-06-08 22:00:00')                    
-        
         mask = (flat['created_on'] > (datetime.now()- timedelta(hours=5))) & (flat['created_on'] <= datetime.now())
 
         flat = flat.loc[mask]
        
         fig = go.Figure()
-        fig.add_trace(go.Scatter(x=flat['created_on'], y=flat['Qg – Standard Conditions'], name="Gas Flow Rate", text='m3/d',
+        fig.add_trace(go.Scatter(x=flat['created_on'], y=flat['Qg – Standard Conditions'].astype(float), name="Gas Flow Rate", text='m3/d',
                             line_shape='linear',
                             line=dict(color='darkgray', width=4)))
 
         fig.update_traces(hoverinfo='name+y+text', mode='markers+lines')
         fig.update_layout(title="Gas Flow Rate")
+        
 
         fig2 = go.Figure()
-        fig2.add_trace(go.Scatter(x=flat['created_on'], y=flat['Qo – Standard Conditions'], name="Oil Flow Rate", text='m3/d',
+        fig2.add_trace(go.Scatter(x=flat['created_on'], y=flat['Qo – Standard Conditions'].astype(float), name="Oil Flow Rate", text='m3/d',
                             line_shape='linear',
                             line=dict(color='darkgreen', width=4)))
 
@@ -241,7 +275,7 @@ class realtimeView(View):
         fig2.update_layout(title="Oil Flow Rate")
         
         fig3 = go.Figure()
-        fig3.add_trace(go.Scatter(x=flat['created_on'], y=flat['Qw – Standard Conditions'], name="Water Flow Rate", text='m3/d',
+        fig3.add_trace(go.Scatter(x=flat['created_on'], y=flat['Qw – Standard Conditions'].astype(float), name="Water Flow Rate", text='m3/d',
                             line_shape='linear',
                             line=dict(color='lightskyblue', width=4)))
 
