@@ -43,7 +43,7 @@ class dashboardView(View):
         url = 'static/ds/ds_grouped.csv'
         url2 = 'static/ds/fsf_prod.csv'
         url3 = 'static/ds/fsf_prod_post_table.csv'
-
+        cur = 'main'
         #ds = pd.read_csv(r'D:\OneDrive\OneDrive - WFT\Compartido\Well_Datasets\La_Calera_Pluspetrol\Post_Process\Analytics_files\df\ds_grouped.csv',low_memory=False)
         #ds2 = pd.read_csv(r'D:\OneDrive\OneDrive - WFT\Compartido\Well_Datasets\La_Calera_Pluspetrol\Post_Process\Analytics_files\df\fsf_prod.csv')
         #ds3 = pd.read_csv(r'D:\OneDrive\OneDrive - WFT\Compartido\Well_Datasets\La_Calera_Pluspetrol\Post_Process\Analytics_files\df\fsf_prod_post_table.csv')
@@ -54,7 +54,7 @@ class dashboardView(View):
 
         by = 'WELL Name'
         
-        gas = ds['Gas Rate Sm3/d'].mean()
+        gas = ds['Gas Rate Sm3/d'].mean().round(1)
         
 
         fig = px.scatter(ds, x=by, y="GOR", color='Meter', size='Gas Rate Sm3/d',title="Gas Oil Rate Comparison")
@@ -93,7 +93,7 @@ class dashboardView(View):
         context = {  'plot_div' : plot_div  , 'plot_div2': plot_div2
                     ,'plot_div3': plot_div3 , 'plot_div4': plot_div4
                     ,'plot_div5': plot_div5 , 'plot_div6': plot_div6
-                    ,'gas':gas                                
+                    ,'gas':gas , 'cur':cur,                               
                     }                                                             
 
         return render(self.request, 'dashboard.html', context)
@@ -106,6 +106,7 @@ class comparisonView(View):
         View demonstrating how to display a graph object
         on a web page with Plotly. 
         """
+        cur = 'comparison'
         import pandas as pd
         # Get data for plots.
         #url = staticfiles_storage.path('ds/compared_data_full.csv')
@@ -173,7 +174,7 @@ class comparisonView(View):
                         output_type='div')
 """
         context = {  'plot_div' : plot_div  , 'plot_div2': plot_div2,
-                     'plot_div3': plot_div3
+                     'plot_div3': plot_div3 , 'cur':cur,
                                               
                     }                                                             
 
@@ -189,7 +190,8 @@ class realtimeView(View):
         import pandas as pd
         # Get data for plots.
         import pyodbc
-        
+        cur = 'realtime'
+
         server = 'daqsamsrv01.database.windows.net'
         database = 'daqdb01'
         username = 'marcos'
@@ -263,7 +265,7 @@ class realtimeView(View):
                         output_type='div')
 
         context = {  'plot_div' : plot_div  , 'plot_div2': plot_div2
-                    ,'plot_div3': plot_div3                             
+                    ,'plot_div3': plot_div3 , 'cur':cur,                            
                     }                                                             
 
         return render(self.request, 'realtimechart.html', context)

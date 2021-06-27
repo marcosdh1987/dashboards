@@ -50,22 +50,36 @@
   <!-- Navbar -->
 </header>
   <!-- Sidebar -->
+  
   <nav id="sidebarMenu" class="collapse d-lg-block sidebar collapse bg-white">
 
 
       <div class="list-group list-group-flush mx-3 mt-4">
-        <a href="/dashboard" class="list-group-item list-group-item-action py-2 ripple" aria-current="true">
+        {% if cur == 'main' %}
+        <a href="/dashboard" class="list-group-item list-group-item-action py-2 ripple active" aria-current="true">
+        {% else %}
+        <a href="/dashboard" class="list-group-item list-group-item-action py-2 ripple" aria-current="false">
+        {% endif %}
           <i class="fas fa-tachometer-alt fa-fw me-3" ></i><span>Main dashboard</span>
         </a>
+        {% if cur == 'comparison' %}
         <a href="/comparison" class="list-group-item list-group-item-action py-2 ripple active">
+        {% else %}
+        <a href="/comparison" class="list-group-item list-group-item-action py-2 ripple"> 
+        {% endif %} 
           <i class="fas fa-chart-area fa-fw me-3" ></i><span>Curret Report </span>
         </a>
         <a href="#" class="list-group-item list-group-item-action py-2 ripple"><i
             class="fas fa-chart-line fa-fw me-3"></i><span>Today Analytics</span></a>
-        <a href="/realtime" class="list-group-item list-group-item-action py-2 ripple"><i
-            class="fas fa-chart-bar fa-fw me-3" ></i><span>Real time Data</span></a>
+        {% if cur == 'realtime' %}
+        <a href="/realtime" class="list-group-item list-group-item-action py-2 ripple active">
+        {% else %}
+        <a href="/realtime" class="list-group-item list-group-item-action py-2 ripple">
+        {% endif %} 
+          <i class="fas fa-chart-bar fa-fw me-3" ></i><span>Real time Data</span></a>
       </div>
   </nav>
+    
   <!-- Sidebar -->
 
 
