@@ -230,6 +230,8 @@ class realtimeView(View):
         cnxn.commit()
         cursor.close()
         """
+
+
         #postgresql connection
         cnx = create_engine(postgres_str)
 
@@ -240,15 +242,6 @@ class realtimeView(View):
                 index=['created_on'],
                 columns=['description'], aggfunc='first')
 
-
-        ds = pd.DataFrame(d1.to_records())
-        ds.columns = [hdr.replace("('value', '", "").replace("')", "") \
-                     for hdr in ds.columns]
-
-
-        d1 = pd.pivot_table(ds,values=['value'],index=['created_on'],columns=['Description'], aggfunc='first')
-
-
         flat = pd.DataFrame(d1.to_records())
         flat.columns = [hdr.replace("('value', '", "").replace("')", "") \
                             for hdr in flat.columns]
@@ -256,6 +249,7 @@ class realtimeView(View):
         mask = (flat['created_on'] > (datetime.now()- timedelta(hours=5))) & (flat['created_on'] <= datetime.now())
 
         flat = flat.loc[mask]
+
        
         fig = go.Figure()
         fig.add_trace(go.Scatter(x=flat['created_on'], y=flat['Qg – Standard Conditions'].astype(float), name="Gas Flow Rate", text='m3/d',
