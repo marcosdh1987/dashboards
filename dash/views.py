@@ -55,6 +55,8 @@ class dashboardView(View):
         by = 'WELL Name'
         
         gas = ds['Gas Rate Sm3/d'].mean().round(1)
+        oil = ds['Oil Flow Sm3/d'].mean().round(1)
+        water = ds['Water Flow Rate m3/d'].mean().round(1)
         
 
         fig = px.scatter(ds, x=by, y="GOR", color='Meter', size='Gas Rate Sm3/d',title="Gas Oil Rate Comparison")
@@ -93,7 +95,7 @@ class dashboardView(View):
         context = {  'plot_div' : plot_div  , 'plot_div2': plot_div2
                     ,'plot_div3': plot_div3 , 'plot_div4': plot_div4
                     ,'plot_div5': plot_div5 , 'plot_div6': plot_div6
-                    ,'gas':gas , 'cur':cur,                               
+                    ,'gas':gas , 'oil':oil , 'water':water , 'cur':cur,                               
                     }                                                             
 
         return render(self.request, 'dashboard.html', context)
@@ -195,7 +197,7 @@ driver= '{ODBC Driver 17 for SQL Server}'
 """
 #postgresql connection
 # Postgres username, password, and database name
-POSTGRES_ADDRESS = '192.168.0.7' 
+POSTGRES_ADDRESS = '192.168.0.7'   #or 192.168.0.7 , melectronica.ddns.net
 POSTGRES_PORT = '5432'
 POSTGRES_USERNAME = 'marcosdb' 
 POSTGRES_PASSWORD = '32922161' 
@@ -235,7 +237,7 @@ class realtimeView(View):
         #postgresql connection
         cnx = create_engine(postgres_str)
 
-        df = pd.read_sql_query('''SELECT * FROM modbus_data''', con=cnx)
+        df = pd.read_sql_query('''SELECT * FROM modbus_data WHERE "created_on" BETWEEN NOW() - INTERVAL '6 HOURS' AND NOW()''', con=cnx)
 
         #convert data
         d1 = pd.pivot_table(df,values=['value'],

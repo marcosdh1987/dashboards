@@ -69,6 +69,81 @@
               <strong>Overall Performance</strong>
             </h5>
           </div>
+
+          <div class="row">
+
+            <div class="col-xl-4 col-md-6 mb-4">
+              <div class="card">
+                <div class="card-body">
+                  <h5>Gas Production last 24hs</h5>
+                  <div class="d-flex justify-content-between p-md-1">
+                    
+                    <div class="d-flex flex-row">
+                      
+                      <div class="align-self-center">
+                        <h2 class="h3 mb-0 me-4">{{ gas }} [m3/d]</h2>
+                      </div>
+                      <div class="align-self-center">
+                        <i class="far fa-chart-line text-warning fa-3x"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+  
+            <div class="col-xl-4 col-md-6 mb-4">
+              <div class="card">
+                <div class="card-body">
+                  <h5>Oil Production last 24hs</h5>
+                  <div class="d-flex justify-content-between p-md-1">
+                    
+                    <div class="d-flex flex-row">
+                      
+                      <div class="align-self-center">
+                        <h2 class="h3 mb-0 me-4">{{ oil }} [m3/d]</h2>
+                      </div>
+                      <div class="align-self-center">
+                        <i class="far fa-chart-line text-success fa-3x"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+  
+            <div class="col-xl-4 col-md-6 mb-4">
+              <div class="card">
+                <div class="card-body">
+                  <h5>Water Production last 24hs</h5>
+                  <div class="d-flex justify-content-between p-md-1">
+                    
+                    <div class="d-flex flex-row">
+                      
+                      <div class="align-self-center">
+                        <h2 class="h3 mb-0 me-4">{{ water }} [m3/d]</h2>
+                      </div>
+                      <div class="align-self-center">
+                        <i class="far fa-chart-line text-info fa-3x"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+  
+            
+  
+  
+  
+            
+          </div>
+
+
+
+
+
+
           <div class="card-body">
             {% autoescape off %}
             {{ plot_div6 }}
@@ -80,68 +155,11 @@
 
       <!--Section: Minimal statistics cards-->
       <section>
-        <div class="row">
-          <div class="col-xl-3 col-sm-6 col-12 mb-4">
-            <div class="card">
-              <div class="card-body">
-                <div class="d-flex justify-content-between px-md-1">
-                  <div class="align-self-center">
-                    <i class="fas fa-chart-line text-success fa-3x"></i>
-                  </div>
-                  <div class="text-end">
-                    <h3>{{ gas }} [m3/d] </h3>
-                    <p class="mb-0">Gas Production</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-xl-3 col-sm-6 col-12 mb-4">
-            <div class="card">
-              <div class="card-body">
-                <div class="d-flex justify-content-between px-md-1">
-                  <div class="align-self-center">
-                    <i class="far fa-comment-alt text-warning fa-3x"></i>
-                  </div>
-                  <div class="text-end">
-                    <h3>156</h3>
-                    <p class="mb-0">New Comments</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-xl-3 col-sm-6 col-12 mb-4">
-            <div class="card">
-              <div class="card-body">
-                <div class="d-flex justify-content-between px-md-1">
-                  <div class="align-self-center">
-                    <i class="fas fa-chart-line text-success fa-3x"></i>
-                  </div>
-                  <div class="text-end">
-                    <h3>64.89 %</h3>
-                    <p class="mb-0">Bounce Rate</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-xl-3 col-sm-6 col-12 mb-4">
-            <div class="card">
-              <div class="card-body">
-                <div class="d-flex justify-content-between px-md-1">
-                  <div class="align-self-center">
-                    <i class="fas fa-map-marker-alt text-danger fa-3x"></i>
-                  </div>
-                  <div class="text-end">
-                    <h3>423</h3>
-                    <p class="mb-0">Total Visits</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        
+
+
+
+
         <div class="row">
           <div class="col-xl-3 col-sm-6 col-12 mb-4">
             <div class="card">
