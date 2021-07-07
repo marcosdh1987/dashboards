@@ -55,7 +55,7 @@
 
 
       <div class="list-group list-group-flush mx-3 mt-4">
-        {% if cur == 'main' %}
+        {% if cur == 'dashboard' %}
         <a href="/dashboard" class="list-group-item list-group-item-action py-2 ripple active" aria-current="true">
         {% else %}
         <a href="/dashboard" class="list-group-item list-group-item-action py-2 ripple" aria-current="false">
@@ -69,8 +69,14 @@
         {% endif %} 
           <i class="fas fa-chart-area fa-fw me-3" ></i><span>Curret Report </span>
         </a>
-        <a href="#" class="list-group-item list-group-item-action py-2 ripple"><i
-            class="fas fa-chart-line fa-fw me-3"></i><span>Today Analytics</span></a>
+        {% if cur == 'analytics' %}
+        <a href="/analytics" class="list-group-item list-group-item-action py-2 ripple active">
+        {% else %}
+        <a href="/analytics" class="list-group-item list-group-item-action py-2 ripple">
+        {% endif %}   
+          <i class="fas fa-chart-line fa-fw me-3"></i><span>Today Analytics</span>
+        </a>
+        
         {% if cur == 'realtime' %}
         <a href="/realtime" class="list-group-item list-group-item-action py-2 ripple active">
         {% else %}
