@@ -62,12 +62,19 @@
         {% endif %}
           <i class="fas fa-tachometer-alt fa-fw me-3" ></i><span>Main dashboard</span>
         </a>
-        {% if cur == 'comparison' %}
-        <a href="/comparison" class="list-group-item list-group-item-action py-2 ripple active">
+        {% if cur == 'fsfdata' %}
+        <a href="/fsfdata" class="list-group-item list-group-item-action py-2 ripple active">
         {% else %}
-        <a href="/comparison" class="list-group-item list-group-item-action py-2 ripple"> 
+        <a href="/fsfdata" class="list-group-item list-group-item-action py-2 ripple"> 
         {% endif %} 
-          <i class="fas fa-chart-area fa-fw me-3" ></i><span>Curret Report </span>
+          <i class="fas fa-chart-area fa-fw me-3" ></i><span>ForeSite Flow Data </span>
+        </a>
+        {% if cur == 'sepdata' %}
+        <a href="/sepdata" class="list-group-item list-group-item-action py-2 ripple active">
+        {% else %}
+        <a href="/sepdata" class="list-group-item list-group-item-action py-2 ripple"> 
+        {% endif %} 
+          <i class="fas fa-chart-area fa-fw me-3" ></i><span>Separator Data </span>
         </a>
         {% if cur == 'analytics' %}
         <a href="/analytics" class="list-group-item list-group-item-action py-2 ripple active">

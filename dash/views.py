@@ -46,13 +46,13 @@ class dashboardView(View):
         #ds = pd.read_csv(r'\\192.168.0.7\3tdata\data_lake\shell_pad11\compared_data_full.csv',low_memory=False)
         ds = pd.read_csv(url)
 
-        gas = ds['Gas Rate m3/d'].mean().round(1)
-        oil = ds['Oil Flow m3/d'].mean().round(1)
-        water = ds['Water Flow Ratem3/d'].mean().round(1)
+        gas = ds['GasFlowRate'].mean().round(1)
+        oil = ds['OilFlowRate'].mean().round(1)
+        water = ds['WaterFlowRate'].mean().round(1)
 
 
         fig = go.Figure()
-        fig.add_trace(go.Scatter(x=ds['Time_x'], y=ds['Gas Rate m3/d'], name="Separator",
+        fig.add_trace(go.Scatter(x=ds['Time_x'], y=ds['GasFlowRate'], name="Separator",
                             line_shape='linear'))
         fig.add_trace(go.Scatter(x=ds['Time_x'], y=ds['QgStd[m3/d]'], name="Foresite Flow",
                             line_shape='spline'))
@@ -61,7 +61,7 @@ class dashboardView(View):
         
 
         fig2 = go.Figure()
-        fig2.add_trace(go.Scatter(x=ds['Time_x'], y=ds['Oil Flow m3/d'], name="Separator",
+        fig2.add_trace(go.Scatter(x=ds['Time_x'], y=ds['OilFlowRate'], name="Separator",
                             line_shape='linear'))
         fig2.add_trace(go.Scatter(x=ds['Time_x'], y=ds['QoStd[m3/d]'], name="Foresite Flow",
                             
@@ -70,7 +70,7 @@ class dashboardView(View):
         fig2.update_layout(hovermode='x unified',title="Oil Flow Rates")
         
         fig3 = go.Figure()
-        fig3.add_trace(go.Scatter(x=ds['Time_x'], y=ds['Water Flow Ratem3/d'], name="Separator",
+        fig3.add_trace(go.Scatter(x=ds['Time_x'], y=ds['WaterFlowRate'], name="Separator",
                             line_shape='linear'))
         fig3.add_trace(go.Scatter(x=ds['Time_x'], y=ds['QwStd[m3/d]'], name="Foresite Flow",
                             
@@ -118,21 +118,21 @@ class analyticsView(View):
         #ds = pd.read_csv(r'\\192.168.0.7\3tdata\data_lake\shell_pad11\compared_data_full.csv',low_memory=False)
         ds = pd.read_csv(url)
 
-        gassep = ds['Gas Rate m3/d'].mean().round(1)
+        gassep = ds['GasFlowRate'].mean().round(1)
         gasfsf = ds['QgStd[m3/d]'].mean().round(1)
         difg = (100*(gassep - gasfsf)/gassep).mean().round(2)
         
 
-        oilsep = ds['Oil Flow m3/d'].mean().round(1)
+        oilsep = ds['OilFlowRate'].mean().round(1)
         oilfsf = ds['QoStd[m3/d]'].mean().round(1)
         difo = (100*(oilsep - oilfsf)/oilsep).mean().round(2)
 
-        watersep = ds['Water Flow Ratem3/d'].mean().round(1)
+        watersep = ds['WaterFlowRate'].mean().round(1)
         waterfsf = ds['QwStd[m3/d]'].mean().round(1)
         difw = (100*(watersep - waterfsf) / watersep).mean().round(2)
 
         fig = go.Figure()
-        fig.add_trace(go.Scatter(x=ds['Time_x'], y=ds['Gas Rate m3/d'], name="Separator",
+        fig.add_trace(go.Scatter(x=ds['Time_x'], y=ds['GasFlowRate'], name="Separator",
                             line_shape='linear'))
         fig.add_trace(go.Scatter(x=ds['Time_x'], y=ds['QgStd[m3/d]'], name="Foresite Flow",
                             line_shape='spline'))
@@ -141,7 +141,7 @@ class analyticsView(View):
         
 
         fig2 = go.Figure()
-        fig2.add_trace(go.Scatter(x=ds['Time_x'], y=ds['Oil Flow m3/d'], name="Separator",
+        fig2.add_trace(go.Scatter(x=ds['Time_x'], y=ds['OilFlowRate'], name="Separator",
                             line_shape='linear'))
         fig2.add_trace(go.Scatter(x=ds['Time_x'], y=ds['QoStd[m3/d]'], name="Foresite Flow",
                             
@@ -150,7 +150,7 @@ class analyticsView(View):
         fig2.update_layout(hovermode='x unified',title="Oil Flow Rates")
         
         fig3 = go.Figure()
-        fig3.add_trace(go.Scatter(x=ds['Time_x'], y=ds['Water Flow Ratem3/d'], name="Separator",
+        fig3.add_trace(go.Scatter(x=ds['Time_x'], y=ds['WaterFlowRate'], name="Separator",
                             line_shape='linear'))
         fig3.add_trace(go.Scatter(x=ds['Time_x'], y=ds['QwStd[m3/d]'], name="Foresite Flow",
                             
@@ -193,19 +193,20 @@ class analyticsView(View):
 
 
 #Current Report
-class comparisonView(View):
+class fsfdataView(View):
     
     def get(self, *args, **kwargs):
         """ 
         View demonstrating how to display a graph object
         on a web page with Plotly. 
         """
-        cur = 'comparison'
+        cur = 'fsfdata'
         import pandas as pd
         # Get data for plots.
         url = 'static/ds/ds_grouped.csv'
         url2 = 'static/ds/fsf_prod.csv'
         url3 = 'static/ds/fsf_prod_post_table.csv'
+        url4 = 'static/ds/compared_data_full.csv'
         
         #ds = pd.read_csv(r'D:\OneDrive\OneDrive - WFT\Compartido\Well_Datasets\La_Calera_Pluspetrol\Post_Process\Analytics_files\df\ds_grouped.csv',low_memory=False)
         #ds2 = pd.read_csv(r'D:\OneDrive\OneDrive - WFT\Compartido\Well_Datasets\La_Calera_Pluspetrol\Post_Process\Analytics_files\df\fsf_prod.csv')
@@ -214,14 +215,38 @@ class comparisonView(View):
         ds = pd.read_csv(url)
         ds2 = pd.read_csv(url2)
         ds3 = pd.read_csv(url3)
+        ds4 = pd.read_csv(url4)
 
         by = 'WELL Name'
         
 
-        fig = px.scatter(ds, x=by, y="GOR", color='Meter', size='Gas Rate Sm3/d',title="Gas Oil Rate Comparison")
-        fig2 = px.scatter(ds, x=by, y="GWR", color='Meter', size='Gas Rate Sm3/d',title="Gas Water Rate Comparison")
-        #fig2 = go.Box(y=ds["GOR"], x=ds[by], boxpoints=False)
-        fig3 = px.box(ds2, x='pad', color='Meter', y="Gas Rate Sm3/d")
+        fig = go.Figure()
+        fig.add_trace(go.Scatter(x=ds4['Time_hs'], y=ds4['QgStd[m3/d]'].astype(float), name="Gas Flow Rate", text='m3/d',
+                            line_shape='linear',
+                            line=dict(color='darkgray', width=4)))
+
+        fig.update_traces(hoverinfo='name+y+text', mode='markers+lines')
+        fig.update_layout(title="Gas Flow Rate")
+
+
+        fig2 = go.Figure()
+        fig2.add_trace(go.Scatter(x=ds4['Time_hs'], y=ds4['QoStd[m3/d]'].astype(float), name="Oil Flow Rate", text='m3/d',
+                            line_shape='linear',
+                            line=dict(color='darkgreen', width=4)))
+
+        fig2.update_traces(hoverinfo='name+y+text', mode='markers+lines')
+        fig2.update_layout(title="Oil Flow Rate")
+
+
+        fig3 = go.Figure()
+        fig3.add_trace(go.Scatter(x=ds4['Time_hs'], y=ds4['QwStd[m3/d]'].astype(float), name="Water Flow Rate", text='m3/d',
+                            line_shape='linear',
+                            line=dict(color='lightskyblue', width=4)))
+
+        fig3.update_traces(hoverinfo='name+y+text', mode='markers+lines')
+        fig3.update_layout(title="Water Flow Rate")
+
+
 
         fig4 = px.box(ds2, x='pad', color='Meter', y="Oil Flow Sm3/d")
         fig5 = px.box(ds2, x='pad', color='Meter', y="Water Flow Rate m3/d")
@@ -256,7 +281,7 @@ class comparisonView(View):
                     ,'cur':cur                               
                     }                                                            
 
-        return render(self.request, 'dashboard.html', context)
+        return render(self.request, 'data_dash.html', context)
 
 
 

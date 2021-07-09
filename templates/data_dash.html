@@ -1,0 +1,300 @@
+{% extends "base.html" %}
+
+
+
+
+
+
+{% block content %}
+
+{% if request.user.is_authenticated %}
+
+  <!--Main layout-->
+<main style="margin-top: 58px">
+    <div class="container pt-4">
+      <!--Section: Performance Analytics -->
+      <section class="mb-4">
+        <div class="card">
+          <div class="card-header text-center py-3">
+            <h5 class="mb-0 text-center">
+              <strong>Well Test Information </strong>
+            </h5>
+          </div>
+
+
+
+          <div class="row">
+            <div class="col-xl-6 col-md-12 mb-4">
+              <div class="card">
+                <div class="card-body">
+                  <h4>Well Head Pressure (Psig)</h4>
+                  <div class="d-flex justify-content-between p-md-1">
+                    <div class="d-flex flex-row">
+                      <div class="align-self-center">
+                        <h2 class="h1 mb-0 me-4"> {{ lpress }}</h2>
+                      </div>
+                      <div>
+                        
+                      </div>
+                    </div>
+                    <div class="align-self-center">
+                      <i class="fas fa-tachometer-alt text-danger fa-3x"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-6 col-md-12 mb-4">
+              <div class="card">
+                <div class="card-body">
+                  <h4>Well Head Temperature (°C)</h4>
+                  <div class="d-flex justify-content-between p-md-1">
+                    <div class="d-flex flex-row">
+                      <div class="align-self-center">
+                        <h2 class="h1 mb-0 me-4">{{ ltemp }}</h2>
+                      </div>
+                    </div>
+                    <div class="align-self-center">
+                      <i class="fas fa-thermometer-half text-success fa-3x"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+         
+
+          <div class="row">
+
+            <div class="col-xl-4 col-md-6 mb-4">
+              <div class="card">
+                <div class="card-body">
+                  <h4>Static Pressure (Psig)</h4>
+                  <div class="d-flex justify-content-between p-md-1">
+                    <div class="d-flex flex-row">
+                      <div class="align-self-center">
+                        <h2 class="h1 mb-0 me-4">{{ gassep }}</h2>
+                      </div>
+                    </div>
+                    <div class="align-self-center">
+                      <i class="fas fa-tachometer-alt text-warning fa-3x"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+  
+            <div class="col-xl-4 col-md-6 mb-4">
+              <div class="card">
+                <div class="card-body">
+                  <h4>Static Temperature (°C)</h4>
+                  <div class="d-flex justify-content-between p-md-1">
+                    <div class="d-flex flex-row">
+                      <div class="align-self-center">
+                        <h2 class="h1 mb-0 me-4">{{ oilsep }}</h2>
+                      </div>
+                    </div>
+                    <div class="align-self-center">
+                      <i class="fas fa-thermometer-half text-warning fa-3x"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+  
+            <div class="col-xl-4 col-md-6 mb-4">
+              <div class="card">
+                <div class="card-body">
+                  <h4>Oil Temperature (°C)</h4>
+                  <div class="d-flex justify-content-between p-md-1">
+                    <div class="d-flex flex-row">
+                      <div class="align-self-center">
+                        <h2 class="h1 mb-0 me-4">{{ watersep }}</h2>
+                      </div>
+                    </div>
+                    <div class="align-self-center">
+                      <i class="fas fa-thermometer-half text-success fa-3x"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+  
+            
+          </div>
+
+                   
+          <div class="row">
+
+            <div class="col-xl-4 col-md-6 mb-4">
+              <div class="card">
+                <div class="card-body">
+                  <h5>Flow Water Cut (%)</h5>
+                  <div class="d-flex justify-content-between p-md-1">
+                    
+                    <div class="d-flex flex-row">
+                      
+                      <div class="align-self-center">
+                        <h1 class="text-info">{{ difg }} %</h1>
+                      </div>
+
+                    </div>
+                    <div class="align-self-center">
+                      <i class="fas fa-chart-pie text-info fa-3x"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+  
+            
+  
+            <div class="col-xl-4 col-md-6 mb-4">
+              <div class="card">
+                <div class="card-body">
+                  <h5>GOR (m3/m3)</h5>
+                  <div class="d-flex justify-content-between p-md-1">
+                    
+                    <div class="d-flex flex-row">
+                      <div class="align-self-center">
+                        <h1 class="text-success">{{ difo }} %</h1>
+                      </div>
+                    </div>
+                      <div class="align-self-center">
+                        <i class="fas fa-chart-pie text-success fa-3x"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+                          
+          </div>
+
+          <div class="row">
+
+            <div class="col-xl-4 col-md-6 mb-4">
+              <div class="card">
+                <div class="card-body">
+                  <h4>Gas Flow Rate (m3/d)</h4>
+                  <div class="d-flex justify-content-between p-md-1">
+                    <div class="d-flex flex-row">
+                      <div class="align-self-center">
+                        <h2 class="h1 mb-0 me-4">{{ gassep }}</h2>
+                      </div>
+                    </div>
+                    <div class="align-self-center">
+                      <i class="fas fa-chart-line text-warning fa-3x"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+  
+            <div class="col-xl-4 col-md-6 mb-4">
+              <div class="card">
+                <div class="card-body">
+                  <h4>Oil Flow Rate (m3/d)</h4>
+                  <div class="d-flex justify-content-between p-md-1">
+                    <div class="d-flex flex-row">
+                      <div class="align-self-center">
+                        <h2 class="h1 mb-0 me-4">{{ oilsep }}</h2>
+                      </div>
+                    </div>
+                    <div class="align-self-center">
+                      <i class="fas fa-chart-line text-success fa-3x"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+  
+            <div class="col-xl-4 col-md-6 mb-4">
+              <div class="card">
+                <div class="card-body">
+                  <h4>Water Flow Rate (m3/d)</h4>
+                  <div class="d-flex justify-content-between p-md-1">
+                    <div class="d-flex flex-row">
+                      <div class="align-self-center">
+                        <h2 class="h1 mb-0 me-4">{{ watersep }}</h2>
+                      </div>
+                    </div>
+                    <div class="align-self-center">
+                      <i class="fas fa-chart-line text-info fa-3x"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+  
+            
+          </div>
+
+
+          
+        </div>
+      </section>
+      <!-- Section: Main chart -->
+      <section class="mb-4">
+        
+        <div class="card">
+          <div class="card-header py-3">
+            <h5 class="mb-0 text-center"><strong>Data Charts</strong></h5>
+          </div>
+          <div class="card-body">
+            {% autoescape off %}
+            {{ plot_div }}
+            {% endautoescape %}
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-body">
+            {% autoescape off %}
+            {{ plot_div2 }}
+            {% endautoescape %}
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-body">
+            {% autoescape off %}
+            {{ plot_div3 }}
+            {% endautoescape %}
+          </div>
+        </div>
+      </section>
+      <!-- Section: Main chart -->
+
+      
+
+      
+
+    </div>
+
+  <!--Main layout-->
+
+{% else %}
+<main style="margin-top: 58px">
+  <div class="container pt-4">
+    <!-- Section: Main chart -->
+    <section class="mb-4">
+      
+      <div class="card">
+        <div class="card-header py-3">
+          <h5 class="mb-0 text-center"><strong>Login</strong></h5>
+        </div>
+        <div class="card-body">
+          <a class="nav-link waves-effect" href="{% url 'account_login' %}">
+            <span class="clearfix d-none d-sm-inline-block"> Ingresar </span>
+          </a>
+        </div>
+      </div>
+    </section>
+  </div>  
+</main>
+{% endif %}
+</div>
+</main>
+
+
+
+{% endblock content %}
