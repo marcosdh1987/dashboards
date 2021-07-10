@@ -40,77 +40,7 @@ class dashboardView(View):
         """
 
         cur = 'dashboard'
-        import pandas as pd
-        # Get data for plots.
-        url = 'static/ds/compared_data_full.csv'
-        #ds = pd.read_csv(r'\\192.168.0.7\3tdata\data_lake\shell_pad11\compared_data_full.csv',low_memory=False)
-        ds = pd.read_csv(url)
-
-        gas = ds['GasFlowRate'].mean().round(1)
-        oil = ds['OilFlowRate'].mean().round(1)
-        water = ds['WaterFlowRate'].mean().round(1)
-
-
-        fig = go.Figure()
-        fig.add_trace(go.Scatter(x=ds['Time_x'], y=ds['GasFlowRate'], name="Separator",
-                            line_shape='linear'))
-        fig.add_trace(go.Scatter(x=ds['Time_x'], y=ds['QgStd[m3/d]'], name="Foresite Flow",
-                            line_shape='spline'))
-
-        fig.update_layout(hovermode='x unified',title="Gas Flow Rates")
-        
-
-        fig2 = go.Figure()
-        fig2.add_trace(go.Scatter(x=ds['Time_x'], y=ds['OilFlowRate'], name="Separator",
-                            line_shape='linear'))
-        fig2.add_trace(go.Scatter(x=ds['Time_x'], y=ds['QoStd[m3/d]'], name="Foresite Flow",
-                            
-                            line_shape='spline'))
-
-        fig2.update_layout(hovermode='x unified',title="Oil Flow Rates")
-        
-        fig3 = go.Figure()
-        fig3.add_trace(go.Scatter(x=ds['Time_x'], y=ds['WaterFlowRate'], name="Separator",
-                            line_shape='linear'))
-        fig3.add_trace(go.Scatter(x=ds['Time_x'], y=ds['QwStd[m3/d]'], name="Foresite Flow",
-                            
-                            line_shape='spline'))
-
-        fig3.update_layout(hovermode='x unified',title="Water Flow Rates")
-
-
-
-        # Setting layout of the figure.
-        layout = {
-            'title': 'Productions Flow rates',
-            'xaxis_title': 'X',
-            'yaxis_title': 'Y',
-        }
-
-        # Getting HTML needed to render the plot.
-        plot_div = plot({'data': fig, 'layout': layout}, 
-                        output_type='div')
-        plot_div2 = plot({'data': fig2, 'layout': layout}, 
-                        output_type='div')
-        plot_div3 = plot({'data': fig3, 'layout': layout}, 
-                        output_type='div')
-
-        context = {  'plot_div' : plot_div  , 'plot_div2': plot_div2
-                    ,'plot_div3': plot_div3 
-                    ,'gas':gas , 'oil':oil , 'water':water , 'cur':cur,                               
-                    }                                                             
-
-        return render(self.request, 'dashboard.html', context)
-
-#Today Analytics
-class analyticsView(View):
-    
-    def get(self, *args, **kwargs):
-        """ 
-        View demonstrating how to display a graph object
-        on a web page with Plotly. 
-        """
-        cur = 'analytics'
+        cur1 = 'Overall'
         import pandas as pd
         # Get data for plots.
         #url = staticfiles_storage.path('ds/compared_data_full.csv')
@@ -183,7 +113,102 @@ class analyticsView(View):
                         output_type='div')
 """
         context = {  'plot_div' : plot_div  , 'plot_div2': plot_div2,
-                     'plot_div3': plot_div3 , 'cur':cur
+                     'plot_div3': plot_div3 , 'cur':cur, 'cur1':cur1
+                    ,'gassep':gassep , 'gasfsf':gasfsf , 'oilsep':oilsep , 'oilfsf':oilfsf, 'waterfsf':waterfsf, 'watersep':watersep, 
+                    'difg':difg,'difw':difw,'difo':difo,
+                    }                                                            
+
+        return render(self.request, 'analytics.html', context)
+
+#Today Analytics
+class analyticsView(View):
+    
+    def get(self, *args, **kwargs):
+        """ 
+        View demonstrating how to display a graph object
+        on a web page with Plotly. 
+        """
+        cur = 'analytics'
+        cur1 = 'Last 24hs '
+        import pandas as pd
+        # Get data for plots.
+        #url = staticfiles_storage.path('ds/compared_data_full.csv')
+        url = 'static/ds/compared_data_full.csv'
+        #ds = pd.read_csv(r'\\192.168.0.7\3tdata\data_lake\shell_pad11\compared_data_full.csv',low_memory=False)
+        ds = pd.read_csv(url)
+
+        ds['Time_hs'] = pd.to_datetime(ds['Time_hs'])
+
+        mask = (ds['Time_hs'] > (datetime.now()- timedelta(hours=100))) & (ds['Time_hs'] <= datetime.now())
+
+        ds = ds.loc[mask]
+
+        gassep = round(ds['GasFlowRate'].mean(),1)
+        gasfsf = round(ds['QgStd[m3/d]'].mean(),1)
+        difg = round((100*(gassep - gasfsf)/gassep).mean(),2)
+        
+
+        oilsep = round(ds['OilFlowRate'].mean(),1)
+        oilfsf = round(ds['QoStd[m3/d]'].mean(),1)
+        difo = round((100*(oilsep - oilfsf)/oilsep).mean(),2)
+
+        watersep = round(ds['WaterFlowRate'].mean(),1)
+        waterfsf = round(ds['QwStd[m3/d]'].mean(),1)
+        difw = round((100*(watersep - waterfsf) / watersep).mean(),2)
+
+        fig = go.Figure()
+        fig.add_trace(go.Scatter(x=ds['Time_x'], y=ds['GasFlowRate'], name="Separator",
+                            line_shape='linear'))
+        fig.add_trace(go.Scatter(x=ds['Time_x'], y=ds['QgStd[m3/d]'], name="Foresite Flow",
+                            line_shape='spline'))
+
+        fig.update_layout(hovermode='x unified',title="Gas Flow Rates")
+        
+
+        fig2 = go.Figure()
+        fig2.add_trace(go.Scatter(x=ds['Time_x'], y=ds['OilFlowRate'], name="Separator",
+                            line_shape='linear'))
+        fig2.add_trace(go.Scatter(x=ds['Time_x'], y=ds['QoStd[m3/d]'], name="Foresite Flow",
+                            
+                            line_shape='spline'))
+
+        fig2.update_layout(hovermode='x unified',title="Oil Flow Rates")
+        
+        fig3 = go.Figure()
+        fig3.add_trace(go.Scatter(x=ds['Time_x'], y=ds['WaterFlowRate'], name="Separator",
+                            line_shape='linear'))
+        fig3.add_trace(go.Scatter(x=ds['Time_x'], y=ds['QwStd[m3/d]'], name="Foresite Flow",
+                            
+                            line_shape='spline'))
+
+        fig3.update_layout(hovermode='x unified',title="Water Flow Rates")
+        
+
+
+
+        # Setting layout of the figure.
+        layout = {
+            'title': 'Productions Flow rates',
+            'xaxis_title': 'X',
+            'yaxis_title': 'Y',
+        }
+
+        # Getting HTML needed to render the plot.
+        plot_div = plot({'data': fig, 'layout': layout}, 
+                        output_type='div')
+        plot_div2 = plot({'data': fig2, 'layout': layout}, 
+                        output_type='div')
+        plot_div3 = plot({'data': fig3, 'layout': layout}, 
+                        output_type='div')
+        """plot_div4 = plot({'data': fig4, 'layout': layout}, 
+                        output_type='div')
+        plot_div5 = plot({'data': fig5, 'layout': layout}, 
+                        output_type='div')
+        plot_div6 = plot({'data': fig6, 'layout': layout}, 
+                        output_type='div')
+"""
+        context = {  'plot_div' : plot_div  , 'plot_div2': plot_div2,
+                     'plot_div3': plot_div3 , 'cur':cur, 'cur1':cur1
                     ,'gassep':gassep , 'gasfsf':gasfsf , 'oilsep':oilsep , 'oilfsf':oilfsf, 'waterfsf':waterfsf, 'watersep':watersep, 
                     'difg':difg,'difw':difw,'difo':difo,
                     }                                                             
@@ -201,6 +226,7 @@ class fsfdataView(View):
         on a web page with Plotly. 
         """
         cur = 'fsfdata'
+        cur1 = 'ForeSite Flow '
         import pandas as pd
         # Get data for plots.
         url = 'static/ds/ds_grouped.csv'
@@ -219,24 +245,24 @@ class fsfdataView(View):
 
         ds4['Time_hs'] = pd.to_datetime(ds4['Time_hs'])
 
-        mask = (ds4['Time_hs'] > (datetime.now()- timedelta(hours=5))) & (ds4['Time_hs'] <= datetime.now())
+        mask = (ds4['Time_hs'] > (datetime.now()- timedelta(hours=192))) & (ds4['Time_hs'] <= datetime.now())
 
         ds24 = ds4.loc[mask]
 
-        gas = ds24['QgStd[m3/d]'].astype(float).mean().round(1)
-        oil = ds24['QoStd[m3/d]'].astype(float).mean().round(1)
-        water = ds24['QwStd[m3/d]'].astype(float).mean().round(1)
-        whp = ds24['WHP'].astype(float).mean().round(1)
-        wht = ds24['WHT'].astype(float).mean().round(1)
-        sp = ds24['Pressure[Bar]'].astype(float).mean().round(1) * 14.5038
-        st = ds24['Temperature[C]'].astype(float).mean().round(1)
-        ot = ds24['Temperature[C]'].astype(float).mean().round(1)
-        wc = ds24['WWC[%]'].astype(float).mean().round(1)
-        gor = gas / oil
+        gas = round(ds24['QgStd[m3/d]'].astype(float).mean(),1)
+        oil = round(ds24['QoStd[m3/d]'].astype(float).mean(),1)
+        water = round(ds24['QwStd[m3/d]'].astype(float).mean(),1)
+        whp = round(ds24['WHP'].astype(float).mean(),1)
+        wht = round(ds24['WHT'].astype(float).mean(),1)
+        sp = round(ds24['Pressure[Bar]'].astype(float).mean() * 14.5038,1)
+        st = round(ds24['Temperature[C]'].astype(float).mean(),1)
+        ot = round(ds24['Temperature[C]'].astype(float).mean(),1)
+        wc = round(ds24['WWC[%]'].astype(float).mean(),1)
+        gor = round((gas / oil),1)
         
 
         fig = go.Figure()
-        fig.add_trace(go.Scatter(x=ds4['Time_hs'], y=ds4['QgStd[m3/d]'].astype(float), name="Gas Flow Rate", text='m3/d',
+        fig.add_trace(go.Scatter(x=ds24['Time_hs'], y=ds24['QgStd[m3/d]'].astype(float), name="Gas Flow Rate", text='m3/d',
                             line_shape='linear',
                             line=dict(color='darkgray', width=4)))
 
@@ -245,7 +271,7 @@ class fsfdataView(View):
 
 
         fig2 = go.Figure()
-        fig2.add_trace(go.Scatter(x=ds4['Time_hs'], y=ds4['QoStd[m3/d]'].astype(float), name="Oil Flow Rate", text='m3/d',
+        fig2.add_trace(go.Scatter(x=ds24['Time_hs'], y=ds24['QoStd[m3/d]'].astype(float), name="Oil Flow Rate", text='m3/d',
                             line_shape='linear',
                             line=dict(color='darkgreen', width=4)))
 
@@ -254,19 +280,12 @@ class fsfdataView(View):
 
 
         fig3 = go.Figure()
-        fig3.add_trace(go.Scatter(x=ds4['Time_hs'], y=ds4['QwStd[m3/d]'].astype(float), name="Water Flow Rate", text='m3/d',
+        fig3.add_trace(go.Scatter(x=ds24['Time_hs'], y=ds24['QwStd[m3/d]'].astype(float), name="Water Flow Rate", text='m3/d',
                             line_shape='linear',
                             line=dict(color='lightskyblue', width=4)))
 
         fig3.update_traces(hoverinfo='name+y+text', mode='markers+lines')
         fig3.update_layout(title="Water Flow Rate")
-
-
-
-        fig4 = px.box(ds2, x='pad', color='Meter', y="Oil Flow Sm3/d")
-        fig5 = px.box(ds2, x='pad', color='Meter', y="Water Flow Rate m3/d")
-
-        fig6 = ff.create_table(ds3, index=False,height_constant=25)
 
 
         # Setting layout of the figure.
@@ -283,16 +302,9 @@ class fsfdataView(View):
                         output_type='div')
         plot_div3 = plot({'data': fig3, 'layout': layout}, 
                         output_type='div')
-        plot_div4 = plot({'data': fig4, 'layout': layout}, 
-                        output_type='div')
-        plot_div5 = plot({'data': fig5, 'layout': layout}, 
-                        output_type='div')
-        plot_div6 = plot({'data': fig6, 'layout': layout}, 
-                        output_type='div')
 
         context = {  'plot_div' : plot_div  , 'plot_div2': plot_div2
-                    ,'plot_div3': plot_div3 , 'plot_div4': plot_div4
-                    ,'plot_div5': plot_div5 , 'plot_div6': plot_div6
+                    ,'plot_div3': plot_div3 , 'cur1':cur1
                     ,'cur':cur,'gas':gas , 'oil':oil , 'water':water
                     ,'whp':whp, 'wht':wht , 'wc':wc , 'gor':gor 
                     ,'sp':sp , 'st':st , 'ot':ot                             
@@ -300,7 +312,100 @@ class fsfdataView(View):
 
         return render(self.request, 'data_dash.html', context)
 
+class sepdataView(View):
+    
+    def get(self, *args, **kwargs):
+        """ 
+        View demonstrating how to display a graph object
+        on a web page with Plotly. 
+        """
+        cur = 'sepdata'
+        cur1 = 'Separator '
+        import pandas as pd
+        # Get data for plots.
+        url = 'static/ds/ds_grouped.csv'
+        url2 = 'static/ds/fsf_prod.csv'
+        url3 = 'static/ds/fsf_prod_post_table.csv'
+        url4 = 'static/ds/compared_data_full.csv'
+        
+        #ds = pd.read_csv(r'D:\OneDrive\OneDrive - WFT\Compartido\Well_Datasets\La_Calera_Pluspetrol\Post_Process\Analytics_files\df\ds_grouped.csv',low_memory=False)
+        #ds2 = pd.read_csv(r'D:\OneDrive\OneDrive - WFT\Compartido\Well_Datasets\La_Calera_Pluspetrol\Post_Process\Analytics_files\df\fsf_prod.csv')
+        #ds3 = pd.read_csv(r'D:\OneDrive\OneDrive - WFT\Compartido\Well_Datasets\La_Calera_Pluspetrol\Post_Process\Analytics_files\df\fsf_prod_post_table.csv')
 
+        ds = pd.read_csv(url)
+        ds2 = pd.read_csv(url2)
+        ds3 = pd.read_csv(url3)
+        ds4 = pd.read_csv(url4)
+
+        ds4['Time_hs'] = pd.to_datetime(ds4['Time_hs'])
+
+        mask = (ds4['Time_hs'] > (datetime.now()- timedelta(hours=192))) & (ds4['Time_hs'] <= datetime.now())
+
+        ds24 = ds4.loc[mask]
+
+        gas = round(ds24['GasFlowRate'].astype(float).mean(),1)
+        oil = round(ds24['OilFlowRate'].astype(float).mean(),1)
+        water = round(ds24['WaterFlowRate'].astype(float).mean(),1)
+        whp = round(ds24['WHP'].astype(float).mean(),1)
+        wht = round(ds24['WHT'].astype(float).mean(),1)
+        sp = round(ds24['sp'].astype(float).mean() * 14.5038,1)
+        st = round(ds24['gasT'].astype(float).mean(),1)
+        ot = round(ds24['OilTemp'].astype(float).mean(),1)
+        wc = round(ds24['WCFlow'].astype(float).mean(),1)
+        gor = round((gas / oil),1)
+        
+
+        fig = go.Figure()
+        fig.add_trace(go.Scatter(x=ds24['Time_hs'], y=ds24['GasFlowRate'].astype(float), name="Gas Flow Rate", text='m3/d',
+                            line_shape='linear',
+                            line=dict(color='darkgray', width=4)))
+
+        fig.update_traces(hoverinfo='name+y+text', mode='markers+lines')
+        fig.update_layout(title="Gas Flow Rate")
+
+
+        fig2 = go.Figure()
+        fig2.add_trace(go.Scatter(x=ds24['Time_hs'], y=ds24['OilFlowRate'].astype(float), name="Oil Flow Rate", text='m3/d',
+                            line_shape='linear',
+                            line=dict(color='darkgreen', width=4)))
+
+        fig2.update_traces(hoverinfo='name+y+text', mode='markers+lines')
+        fig2.update_layout(title="Oil Flow Rate")
+
+
+        fig3 = go.Figure()
+        fig3.add_trace(go.Scatter(x=ds24['Time_hs'], y=ds24['WaterFlowRate'].astype(float), name="Water Flow Rate", text='m3/d',
+                            line_shape='linear',
+                            line=dict(color='lightskyblue', width=4)))
+
+        fig3.update_traces(hoverinfo='name+y+text', mode='markers+lines')
+        fig3.update_layout(title="Water Flow Rate")
+
+
+
+        # Setting layout of the figure.
+        layout = {
+            'title': 'Productions Flow rates',
+            'xaxis_title': 'X',
+            'yaxis_title': 'Y',
+        }
+
+        # Getting HTML needed to render the plot.
+        plot_div = plot({'data': fig, 'layout': layout}, 
+                        output_type='div')
+        plot_div2 = plot({'data': fig2, 'layout': layout}, 
+                        output_type='div')
+        plot_div3 = plot({'data': fig3, 'layout': layout}, 
+                        output_type='div')
+
+        context = {  'plot_div' : plot_div  , 'plot_div2': plot_div2
+                    ,'plot_div3': plot_div3 , 'cur1':cur1
+                    ,'cur':cur,'gas':gas , 'oil':oil , 'water':water
+                    ,'whp':whp, 'wht':wht , 'wc':wc , 'gor':gor 
+                    ,'sp':sp , 'st':st , 'ot':ot                             
+                    }                                                               
+
+        return render(self.request, 'data_dash.html', context)
 
 
 
