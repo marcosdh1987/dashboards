@@ -217,7 +217,22 @@ class fsfdataView(View):
         ds3 = pd.read_csv(url3)
         ds4 = pd.read_csv(url4)
 
-        by = 'WELL Name'
+        ds4['Time_hs'] = pd.to_datetime(ds4['Time_hs'])
+
+        mask = (ds4['Time_hs'] > (datetime.now()- timedelta(hours=5))) & (ds4['Time_hs'] <= datetime.now())
+
+        ds24 = ds4.loc[mask]
+
+        gas = ds24['QgStd[m3/d]'].astype(float).mean().round(1)
+        oil = ds24['QoStd[m3/d]'].astype(float).mean().round(1)
+        water = ds24['QwStd[m3/d]'].astype(float).mean().round(1)
+        whp = ds24['WHP'].astype(float).mean().round(1)
+        wht = ds24['WHT'].astype(float).mean().round(1)
+        sp = ds24['Pressure[Bar]'].astype(float).mean().round(1) * 14.5038
+        st = ds24['Temperature[C]'].astype(float).mean().round(1)
+        ot = ds24['Temperature[C]'].astype(float).mean().round(1)
+        wc = ds24['WWC[%]'].astype(float).mean().round(1)
+        gor = gas / oil
         
 
         fig = go.Figure()
@@ -278,7 +293,9 @@ class fsfdataView(View):
         context = {  'plot_div' : plot_div  , 'plot_div2': plot_div2
                     ,'plot_div3': plot_div3 , 'plot_div4': plot_div4
                     ,'plot_div5': plot_div5 , 'plot_div6': plot_div6
-                    ,'cur':cur                               
+                    ,'cur':cur,'gas':gas , 'oil':oil , 'water':water
+                    ,'whp':whp, 'wht':wht , 'wc':wc , 'gor':gor 
+                    ,'sp':sp , 'st':st , 'ot':ot                             
                     }                                                            
 
         return render(self.request, 'data_dash.html', context)
