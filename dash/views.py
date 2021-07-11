@@ -87,26 +87,24 @@ class dashboardView(View):
                             line_shape='linear'))
         fig.add_trace(go.Scatter(x=ds['Time_x'], y=ds['QgStd[m3/d]'], name="Foresite Flow",
                             line_shape='spline'))
-
         fig.update_layout(hovermode='x unified',title="Gas Flow Rates")
+        fig.update_layout(legend=dict(yanchor="top",y=0.99,xanchor="left",x=0.01)) #to use legend inside of plot
         
         fig2 = go.Figure()
         fig2.add_trace(go.Scatter(x=ds['Time_x'], y=ds['OilFlowRate'], name="Separator",
                             line_shape='linear'))
         fig2.add_trace(go.Scatter(x=ds['Time_x'], y=ds['QoStd[m3/d]'], name="Foresite Flow",
-                            
                             line_shape='spline'))
-
         fig2.update_layout(hovermode='x unified',title="Oil Flow Rates")
+        fig2.update_layout(legend=dict(yanchor="top",y=0.99,xanchor="left",x=0.01)) #to use legend inside of plot
         
         fig3 = go.Figure()
         fig3.add_trace(go.Scatter(x=ds['Time_x'], y=ds['WaterFlowRate'], name="Separator",
                             line_shape='linear'))
         fig3.add_trace(go.Scatter(x=ds['Time_x'], y=ds['QwStd[m3/d]'], name="Foresite Flow",
-                            
                             line_shape='spline'))
-
         fig3.update_layout(hovermode='x unified',title="Water Flow Rates")
+        fig3.update_layout(legend=dict(yanchor="top",y=0.99,xanchor="left",x=0.01)) #to use legend inside of plot
 
         # Setting layout of the figure.
         layout = {
@@ -164,26 +162,24 @@ class analyticsView(View):
                             line_shape='linear'))
         fig.add_trace(go.Scatter(x=ds['Time_x'], y=ds['QgStd[m3/d]'], name="Foresite Flow",
                             line_shape='spline'))
-
         fig.update_layout(hovermode='x unified',title="Gas Flow Rates")
+        fig.update_layout(legend=dict(yanchor="top",y=0.99,xanchor="left",x=0.01)) #to use legend inside of plot
         
         fig2 = go.Figure()
         fig2.add_trace(go.Scatter(x=ds['Time_x'], y=ds['OilFlowRate'], name="Separator",
                             line_shape='linear'))
         fig2.add_trace(go.Scatter(x=ds['Time_x'], y=ds['QoStd[m3/d]'], name="Foresite Flow",
-                            
                             line_shape='spline'))
-
         fig2.update_layout(hovermode='x unified',title="Oil Flow Rates")
+        fig2.update_layout(legend=dict(yanchor="top",y=0.99,xanchor="left",x=0.01)) #to use legend inside of plot
         
         fig3 = go.Figure()
         fig3.add_trace(go.Scatter(x=ds['Time_x'], y=ds['WaterFlowRate'], name="Separator",
                             line_shape='linear'))
         fig3.add_trace(go.Scatter(x=ds['Time_x'], y=ds['QwStd[m3/d]'], name="Foresite Flow",
-                            
                             line_shape='spline'))
-
         fig3.update_layout(hovermode='x unified',title="Water Flow Rates")
+        fig3.update_layout(legend=dict(yanchor="top",y=0.99,xanchor="left",x=0.01)) #to use legend inside of plot
 
         # Setting layout of the figure.
         layout = {
