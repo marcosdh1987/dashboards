@@ -13,7 +13,7 @@
       </button>
 
       <!-- Brand -->
-      <a class="navbar-brand" href="#">
+      <a class="navbar-brand" href="">
         <img src="{% static 'img/logo.JPG' %}" height="35" alt="" loading="lazy" />
       </a>
       <!-- Search form -->
@@ -40,7 +40,7 @@
           </a>
         </li>
         {% endif %}
-      </ul>
+      
       </ul>
     </div>
     <!-- Container wrapper -->
@@ -52,7 +52,7 @@
   <!-- Sidebar -->
   
   <nav id="sidebarMenu" class="collapse d-lg-block sidebar collapse bg-white">
-
+    
 
       <div class="list-group list-group-flush mx-3 mt-4">
         {% if cur == 'dashboard' %}
@@ -83,7 +83,6 @@
         {% endif %}   
           <i class="fas fa-chart-line fa-fw me-3"></i><span>Today Analytics</span>
         </a>
-        
         {% if cur == 'realtime' %}
         <a href="/realtime" class="list-group-item list-group-item-action py-2 ripple active">
         {% else %}
