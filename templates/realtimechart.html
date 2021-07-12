@@ -12,7 +12,7 @@
         
         <div class="card">
           <div class="card-header py-3">
-            <h5 class="mb-0 text-center"><strong>ForeSite Flow Real time Data</strong></h5>
+            <h2 class="mb-0 text-center"><strong>ForeSite Flow Real time Data</strong></h2>
           </div>
         
           <div class="row">
@@ -135,6 +135,9 @@
               {% endautoescape %}
             </div>
           </div>
+          <div class="col text-center"><a class="nav-link waves-effect" href="/">
+            <h5 class="btn btn-primary mb-4 ripple-surface"><strong>Back to home</strong></h5></a>
+          </div>
       </section>
 
     </div>
@@ -151,11 +154,11 @@
       
       <div class="card">
         <div class="card-header py-3">
-          <h5 class="mb-0 text-center"><strong>Login</strong></h5>
+          <h5 class="mb-0 text-center"><strong>User Login</strong></h5>
         </div>
-        <div class="card-body">
+        <div class="col text-center">
           <a class="nav-link waves-effect" href="{% url 'account_login' %}">
-            <span class="clearfix d-none d-sm-inline-block"> Ingresar </span>
+            <span class="btn btn-primary mb-4 ripple-surface"> Login </span>
           </a>
         </div>
       </div>

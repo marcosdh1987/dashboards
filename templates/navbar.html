@@ -1,9 +1,55 @@
 {% load static %}
 <!--Main Navigation-->
 <header>
+  
+  <!-- Sidebar -->
+  
+  <nav id="sidebarMenu" class="collapse d-lg-block sidebar collapse bg-gray">
+    
+    <div class="position-sticky">
+      <div class="list-group list-group-flush mx-3 mt-4">
+      {% if cur == 'dashboard' %}
+      <a href="/dashboard" class="list-group-item list-group-item-action py-2 ripple active" aria-current="true">
+      {% else %}
+      <a href="/dashboard" class="list-group-item list-group-item-action py-2 ripple" aria-current="false">
+      {% endif %}
+        <i class="fas fa-tachometer-alt fa-fw me-3" ></i><span>Main dashboard</span>
+      </a>
+      {% if cur == 'fsfdata' %}
+      <a href="/fsfdata" class="list-group-item list-group-item-action py-2 ripple active">
+      {% else %}
+      <a href="/fsfdata" class="list-group-item list-group-item-action py-2 ripple"> 
+      {% endif %} 
+        <i class="fas fa-chart-area fa-fw me-3" ></i><span>ForeSite Flow Data </span>
+      </a>
+      {% if cur == 'sepdata' %}
+      <a href="/sepdata" class="list-group-item list-group-item-action py-2 ripple active">
+      {% else %}
+      <a href="/sepdata" class="list-group-item list-group-item-action py-2 ripple"> 
+      {% endif %} 
+        <i class="fas fa-chart-area fa-fw me-3" ></i><span>Separator Data </span>
+      </a>
+      {% if cur == 'analytics' %}
+      <a href="/analytics" class="list-group-item list-group-item-action py-2 ripple active">
+      {% else %}
+      <a href="/analytics" class="list-group-item list-group-item-action py-2 ripple">
+      {% endif %}   
+        <i class="fas fa-chart-line fa-fw me-3"></i><span>Today Analytics</span>
+      </a>
+      {% if cur == 'realtime' %}
+      <a href="/realtime" class="list-group-item list-group-item-action py-2 ripple active">
+      {% else %}
+      <a href="/realtime" class="list-group-item list-group-item-action py-2 ripple">
+      {% endif %} 
+        <i class="fas fa-chart-bar fa-fw me-3" ></i><span>Real time Data</span></a>
+      </div>
+    </div>
+</nav>
+  
+<!-- Sidebar -->
 
-  <!-- Navbar -->
-  <nav id="main-navbar" class="navbar navbar-expand-lg navbar-light bg-white fixed-top">
+<!-- Navbar -->
+  <nav id="main-navbar" class="navbar navbar-expand-lg navbar-light bg-gray fixed-top">
     <!-- Container wrapper -->
     <div class="container-fluid">
       <!-- Toggle button -->
@@ -13,8 +59,8 @@
       </button>
 
       <!-- Brand -->
-      <a class="navbar-brand" href="">
-        <img src="{% static 'img/logo.JPG' %}" height="35" alt="" loading="lazy" />
+      <a class="navbar-brand" href="/">
+        <img src="{% static 'img/logo2.PNG' %}" height="50" alt="" loading="lazy" />
       </a>
       <!-- Search form -->
 
@@ -30,13 +76,13 @@
         </li>
         <li class="nav-item">
           <a class="nav-link waves-effect" href="{% url 'account_logout' %}">
-            <span class="clearfix d-none d-sm-inline-block"> Salir </span>
+            <span class="clearfix d-none d-sm-inline-block"> Logout </span>
           </a>
         </li>
         {% else %}
         <li class="nav-item">
           <a class="nav-link waves-effect" href="{% url 'account_login' %}">
-            <span class="clearfix d-none d-sm-inline-block"> Ingresar </span>
+            <span class="clearfix d-none d-sm-inline-block"> Login </span>
           </a>
         </li>
         {% endif %}
@@ -49,50 +95,7 @@
 
   <!-- Navbar -->
 </header>
-  <!-- Sidebar -->
-  
-  <nav id="sidebarMenu" class="collapse d-lg-block sidebar collapse bg-white">
-    
 
-      <div class="list-group list-group-flush mx-3 mt-4">
-        {% if cur == 'dashboard' %}
-        <a href="/dashboard" class="list-group-item list-group-item-action py-2 ripple active" aria-current="true">
-        {% else %}
-        <a href="/dashboard" class="list-group-item list-group-item-action py-2 ripple" aria-current="false">
-        {% endif %}
-          <i class="fas fa-tachometer-alt fa-fw me-3" ></i><span>Main dashboard</span>
-        </a>
-        {% if cur == 'fsfdata' %}
-        <a href="/fsfdata" class="list-group-item list-group-item-action py-2 ripple active">
-        {% else %}
-        <a href="/fsfdata" class="list-group-item list-group-item-action py-2 ripple"> 
-        {% endif %} 
-          <i class="fas fa-chart-area fa-fw me-3" ></i><span>ForeSite Flow Data </span>
-        </a>
-        {% if cur == 'sepdata' %}
-        <a href="/sepdata" class="list-group-item list-group-item-action py-2 ripple active">
-        {% else %}
-        <a href="/sepdata" class="list-group-item list-group-item-action py-2 ripple"> 
-        {% endif %} 
-          <i class="fas fa-chart-area fa-fw me-3" ></i><span>Separator Data </span>
-        </a>
-        {% if cur == 'analytics' %}
-        <a href="/analytics" class="list-group-item list-group-item-action py-2 ripple active">
-        {% else %}
-        <a href="/analytics" class="list-group-item list-group-item-action py-2 ripple">
-        {% endif %}   
-          <i class="fas fa-chart-line fa-fw me-3"></i><span>Today Analytics</span>
-        </a>
-        {% if cur == 'realtime' %}
-        <a href="/realtime" class="list-group-item list-group-item-action py-2 ripple active">
-        {% else %}
-        <a href="/realtime" class="list-group-item list-group-item-action py-2 ripple">
-        {% endif %} 
-          <i class="fas fa-chart-bar fa-fw me-3" ></i><span>Real time Data</span></a>
-      </div>
-  </nav>
-    
-  <!-- Sidebar -->
 
 
 
