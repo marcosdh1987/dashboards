@@ -87,7 +87,12 @@ class dashboardView(View):
                             line_shape='linear'))
         fig.add_trace(go.Scatter(x=ds['Time_x'], y=ds['QgStd[m3/d]'], name="Foresite Flow",
                             line_shape='spline'))
-        fig.update_layout(hovermode='x unified',title="Gas Flow Rates")
+        fig.update_layout(hovermode='x unified',title="Gas Flow Rates",margin=go.layout.Margin(
+        l=0, #left margin
+        r=0, #right margin
+        b=0, #bottom margin
+        t=0, #top margin
+        ))
         fig.update_layout(legend=dict(yanchor="top",y=0.99,xanchor="left",x=0.01)) #to use legend inside of plot
         
         fig2 = go.Figure()
@@ -95,7 +100,12 @@ class dashboardView(View):
                             line_shape='linear'))
         fig2.add_trace(go.Scatter(x=ds['Time_x'], y=ds['QoStd[m3/d]'], name="Foresite Flow",
                             line_shape='spline'))
-        fig2.update_layout(hovermode='x unified',title="Oil Flow Rates")
+        fig2.update_layout(hovermode='x unified',title="Oil Flow Rates",margin=go.layout.Margin(
+        l=0, #left margin
+        r=0, #right margin
+        b=0, #bottom margin
+        t=0, #top margin
+        ))
         fig2.update_layout(legend=dict(yanchor="top",y=0.99,xanchor="left",x=0.01)) #to use legend inside of plot
         
         fig3 = go.Figure()
@@ -103,7 +113,12 @@ class dashboardView(View):
                             line_shape='linear'))
         fig3.add_trace(go.Scatter(x=ds['Time_x'], y=ds['QwStd[m3/d]'], name="Foresite Flow",
                             line_shape='spline'))
-        fig3.update_layout(hovermode='x unified',title="Water Flow Rates")
+        fig3.update_layout(hovermode='x unified',title="Water Flow Rates",margin=go.layout.Margin(
+        l=0, #left margin
+        r=0, #right margin
+        b=0, #bottom margin
+        t=0, #top margin
+        ))
         fig3.update_layout(legend=dict(yanchor="top",y=0.99,xanchor="left",x=0.01)) #to use legend inside of plot
 
         # Setting layout of the figure.
@@ -162,7 +177,12 @@ class analyticsView(View):
                             line_shape='linear'))
         fig.add_trace(go.Scatter(x=ds['Time_x'], y=ds['QgStd[m3/d]'], name="Foresite Flow",
                             line_shape='spline'))
-        fig.update_layout(hovermode='x unified',title="Gas Flow Rates")
+        fig.update_layout(hovermode='x unified',title="Gas Flow Rates",margin=go.layout.Margin(
+        l=0, #left margin
+        r=0, #right margin
+        b=0, #bottom margin
+        t=0, #top margin
+        ))
         fig.update_layout(legend=dict(yanchor="top",y=0.99,xanchor="left",x=0.01)) #to use legend inside of plot
         
         fig2 = go.Figure()
@@ -170,7 +190,12 @@ class analyticsView(View):
                             line_shape='linear'))
         fig2.add_trace(go.Scatter(x=ds['Time_x'], y=ds['QoStd[m3/d]'], name="Foresite Flow",
                             line_shape='spline'))
-        fig2.update_layout(hovermode='x unified',title="Oil Flow Rates")
+        fig2.update_layout(hovermode='x unified',title="Oil Flow Rates",margin=go.layout.Margin(
+        l=0, #left margin
+        r=0, #right margin
+        b=0, #bottom margin
+        t=0, #top margin
+        ))
         fig2.update_layout(legend=dict(yanchor="top",y=0.99,xanchor="left",x=0.01)) #to use legend inside of plot
         
         fig3 = go.Figure()
@@ -178,7 +203,12 @@ class analyticsView(View):
                             line_shape='linear'))
         fig3.add_trace(go.Scatter(x=ds['Time_x'], y=ds['QwStd[m3/d]'], name="Foresite Flow",
                             line_shape='spline'))
-        fig3.update_layout(hovermode='x unified',title="Water Flow Rates")
+        fig3.update_layout(hovermode='x unified',title="Water Flow Rates",margin=go.layout.Margin(
+        l=0, #left margin
+        r=0, #right margin
+        b=0, #bottom margin
+        t=0, #top margin
+        ))
         fig3.update_layout(legend=dict(yanchor="top",y=0.99,xanchor="left",x=0.01)) #to use legend inside of plot
 
         # Setting layout of the figure.
@@ -240,7 +270,12 @@ class fsfdataView(View):
                             line=dict(color='darkgray', width=4)))
 
         fig.update_traces(hoverinfo='name+y+text', mode='markers+lines')
-        fig.update_layout(title="Gas Flow Rate")
+        fig.update_layout(title="Gas Flow Rate",margin=go.layout.Margin(
+        l=0, #left margin
+        r=0, #right margin
+        b=0, #bottom margin
+        t=0, #top margin
+        ))
 
         fig2 = go.Figure()
         fig2.add_trace(go.Scatter(x=ds24['Time_hs'], y=ds24['QoStd[m3/d]'].astype(float), name="Oil Flow Rate", text='m3/d',
@@ -248,7 +283,12 @@ class fsfdataView(View):
                             line=dict(color='darkgreen', width=4)))
 
         fig2.update_traces(hoverinfo='name+y+text', mode='markers+lines')
-        fig2.update_layout(title="Oil Flow Rate")
+        fig2.update_layout(title="Oil Flow Rate",margin=go.layout.Margin(
+        l=0, #left margin
+        r=0, #right margin
+        b=0, #bottom margin
+        t=0, #top margin
+        ))
 
         fig3 = go.Figure()
         fig3.add_trace(go.Scatter(x=ds24['Time_hs'], y=ds24['QwStd[m3/d]'].astype(float), name="Water Flow Rate", text='m3/d',
@@ -256,7 +296,12 @@ class fsfdataView(View):
                             line=dict(color='lightskyblue', width=4)))
 
         fig3.update_traces(hoverinfo='name+y+text', mode='markers+lines')
-        fig3.update_layout(title="Water Flow Rate")
+        fig3.update_layout(title="Water Flow Rate",margin=go.layout.Margin(
+        l=0, #left margin
+        r=0, #right margin
+        b=0, #bottom margin
+        t=0, #top margin
+        ))
 
         # Setting layout of the figure.
         layout = {
@@ -317,7 +362,12 @@ class sepdataView(View):
                             line=dict(color='darkgray', width=4)))
 
         fig.update_traces(hoverinfo='name+y+text', mode='markers+lines')
-        fig.update_layout(title="Gas Flow Rate")
+        fig.update_layout(title="Gas Flow Rate",margin=go.layout.Margin(
+        l=0, #left margin
+        r=0, #right margin
+        b=0, #bottom margin
+        t=0, #top margin
+        ))
 
         fig2 = go.Figure()
         fig2.add_trace(go.Scatter(x=ds24['Time_hs'], y=ds24['OilFlowRate'].astype(float), name="Oil Flow Rate", text='m3/d',
@@ -325,7 +375,12 @@ class sepdataView(View):
                             line=dict(color='darkgreen', width=4)))
 
         fig2.update_traces(hoverinfo='name+y+text', mode='markers+lines')
-        fig2.update_layout(title="Oil Flow Rate")
+        fig2.update_layout(title="Oil Flow Rate",margin=go.layout.Margin(
+        l=0, #left margin
+        r=0, #right margin
+        b=0, #bottom margin
+        t=0, #top margin
+        ))
 
         fig3 = go.Figure()
         fig3.add_trace(go.Scatter(x=ds24['Time_hs'], y=ds24['WaterFlowRate'].astype(float), name="Water Flow Rate", text='m3/d',
@@ -333,7 +388,12 @@ class sepdataView(View):
                             line=dict(color='lightskyblue', width=4)))
 
         fig3.update_traces(hoverinfo='name+y+text', mode='markers+lines')
-        fig3.update_layout(title="Water Flow Rate")
+        fig3.update_layout(title="Water Flow Rate",margin=go.layout.Margin(
+        l=0, #left margin
+        r=0, #right margin
+        b=0, #bottom margin
+        t=0, #top margin
+        ))
 
         # Setting layout of the figure.
         layout = {
@@ -415,7 +475,12 @@ class realtimeView(View):
                             line=dict(color='darkgray', width=4)))
 
         fig.update_traces(hoverinfo='name+y+text', mode='markers+lines')
-        fig.update_layout(title="Gas Flow Rate")
+        fig.update_layout(title="Gas Flow Rate",margin=go.layout.Margin(
+        l=0, #left margin
+        r=0, #right margin
+        b=0, #bottom margin
+        t=0, #top margin
+        ))
         
         fig2 = go.Figure()
         fig2.add_trace(go.Scatter(x=flat['created_on'], y=flat['Qo – Standard Conditions'].astype(float), name="Oil Flow Rate", text='m3/d',
@@ -423,7 +488,12 @@ class realtimeView(View):
                             line=dict(color='darkgreen', width=4)))
 
         fig2.update_traces(hoverinfo='name+y+text', mode='markers+lines')
-        fig2.update_layout(title="Oil Flow Rate")
+        fig2.update_layout(title="Oil Flow Rate",margin=go.layout.Margin(
+        l=0, #left margin
+        r=0, #right margin
+        b=0, #bottom margin
+        t=0, #top margin
+        ))
         
         fig3 = go.Figure()
         fig3.add_trace(go.Scatter(x=flat['created_on'], y=flat['Qw – Standard Conditions'].astype(float), name="Water Flow Rate", text='m3/d',
@@ -431,7 +501,12 @@ class realtimeView(View):
                             line=dict(color='lightskyblue', width=4)))
 
         fig3.update_traces(hoverinfo='name+y+text', mode='markers+lines')
-        fig3.update_layout(title="Water Flow Rate")
+        fig3.update_layout(title="Water Flow Rate",margin=go.layout.Margin(
+        l=0, #left margin
+        r=0, #right margin
+        b=0, #bottom margin
+        t=0, #top margin
+        ))
 
         # Setting layout of the figure.
         layout = {
