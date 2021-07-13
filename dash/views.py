@@ -91,7 +91,7 @@ class dashboardView(View):
         l=0, #left margin
         r=0, #right margin
         b=0, #bottom margin
-        t=0, #top margin
+        t=40, #top margin
         ))
         fig.update_layout(legend=dict(yanchor="top",y=0.99,xanchor="left",x=0.01)) #to use legend inside of plot
         
@@ -104,7 +104,7 @@ class dashboardView(View):
         l=0, #left margin
         r=0, #right margin
         b=0, #bottom margin
-        t=0, #top margin
+        t=40, #top margin
         ))
         fig2.update_layout(legend=dict(yanchor="top",y=0.99,xanchor="left",x=0.01)) #to use legend inside of plot
         
@@ -117,9 +117,49 @@ class dashboardView(View):
         l=0, #left margin
         r=0, #right margin
         b=0, #bottom margin
-        t=0, #top margin
+        t=40, #top margin
         ))
         fig3.update_layout(legend=dict(yanchor="top",y=0.99,xanchor="left",x=0.01)) #to use legend inside of plot
+        
+        fig4 = go.Figure()
+        fig4.add_trace(go.Scatter(x=ds['Time_x'], y=ds['WHP'], name="Well Head Pressure",
+                            line_shape='linear'))
+        fig4.add_trace(go.Scatter(x=ds['Time_x'], y=ds['WHT'], name="Well Head Temperature",
+                            line_shape='spline'))
+        fig4.update_layout(hovermode='x unified',title="Well Head Pressure & Temperature",margin=go.layout.Margin(
+        l=0, #left margin
+        r=0, #right margin
+        b=0, #bottom margin
+        t=40, #top margin
+        ))
+        fig4.update_layout(legend=dict(yanchor="top",y=0.99,xanchor="left",x=0.01)) #to use legend inside of plot
+
+        fig5 = go.Figure()
+        fig5.add_trace(go.Scatter(x=ds['Time_x'], y=ds['sp'], name="Separator Pressure",
+                            line_shape='linear'))
+        fig5.add_trace(go.Scatter(x=ds['Time_x'], y=(ds['Pressure[Bar]']*14.5038), name="ForeSite Flow Pressure",
+                            line_shape='spline'))
+        fig5.update_layout(hovermode='x unified',title="Meters Pressure",margin=go.layout.Margin(
+        l=0, #left margin
+        r=0, #right margin
+        b=0, #bottom margin
+        t=40, #top margin
+        ))
+        fig5.update_layout(legend=dict(yanchor="top",y=0.99,xanchor="left",x=0.01)) #to use legend inside of plot
+
+        fig6 = go.Figure()
+        fig6.add_trace(go.Scatter(x=ds['Time_x'], y=ds['gasT'], name="Separator Gas Temperature",
+                            line_shape='linear'))
+        fig6.add_trace(go.Scatter(x=ds['Time_x'], y=ds['Temperature[C]'], name="ForeSite Flow Temperature",
+                            line_shape='spline'))
+        fig6.update_layout(hovermode='x unified',title="Meters Temperature[C]",margin=go.layout.Margin(
+        l=0, #left margin
+        r=0, #right margin
+        b=0, #bottom margin
+        t=40, #top margin
+        ))
+        fig6.update_layout(legend=dict(yanchor="top",y=0.99,xanchor="left",x=0.01)) #to use legend inside of plot
+
 
         # Setting layout of the figure.
         layout = {
@@ -135,9 +175,17 @@ class dashboardView(View):
                         output_type='div')
         plot_div3 = plot({'data': fig3, 'layout': layout}, 
                         output_type='div')
+        plot_div4 = plot({'data': fig4, 'layout': layout}, 
+                        output_type='div')
+        plot_div5 = plot({'data': fig5, 'layout': layout}, 
+                        output_type='div')
+        plot_div6 = plot({'data': fig6, 'layout': layout}, 
+                        output_type='div')
         
         context = {  'plot_div' : plot_div  , 'plot_div2': plot_div2,
-                     'plot_div3': plot_div3 , 'cur':cur, 'cur1':cur1
+                     'plot_div3': plot_div3 , 'plot_div4':plot_div4, 
+                     'plot_div5':plot_div5, 'plot_div6':plot_div6, 
+                     'cur':cur, 'cur1':cur1
                     ,'gassep':gassep , 'gasfsf':gasfsf , 'oilsep':oilsep , 'oilfsf':oilfsf, 'waterfsf':waterfsf, 'watersep':watersep, 
                     'difg':difg,'difw':difw,'difo':difo,
                     }                                                            
@@ -181,7 +229,7 @@ class analyticsView(View):
         l=0, #left margin
         r=0, #right margin
         b=0, #bottom margin
-        t=0, #top margin
+        t=40, #top margin
         ))
         fig.update_layout(legend=dict(yanchor="top",y=0.99,xanchor="left",x=0.01)) #to use legend inside of plot
         
@@ -194,7 +242,7 @@ class analyticsView(View):
         l=0, #left margin
         r=0, #right margin
         b=0, #bottom margin
-        t=0, #top margin
+        t=40, #top margin
         ))
         fig2.update_layout(legend=dict(yanchor="top",y=0.99,xanchor="left",x=0.01)) #to use legend inside of plot
         
@@ -207,9 +255,49 @@ class analyticsView(View):
         l=0, #left margin
         r=0, #right margin
         b=0, #bottom margin
-        t=0, #top margin
+        t=40, #top margin
         ))
         fig3.update_layout(legend=dict(yanchor="top",y=0.99,xanchor="left",x=0.01)) #to use legend inside of plot
+
+        fig4 = go.Figure()
+        fig4.add_trace(go.Scatter(x=ds['Time_x'], y=ds['WHP'], name="Well Head Pressure",
+                            line_shape='linear'))
+        fig4.add_trace(go.Scatter(x=ds['Time_x'], y=ds['WHT'], name="Well Head Temperature",
+                            line_shape='spline'))
+        fig4.update_layout(hovermode='x unified',title="Well Head Pressure & Temperature",margin=go.layout.Margin(
+        l=0, #left margin
+        r=0, #right margin
+        b=0, #bottom margin
+        t=40, #top margin
+        ))
+        fig4.update_layout(legend=dict(yanchor="top",y=0.99,xanchor="left",x=0.01)) #to use legend inside of plot
+
+        fig5 = go.Figure()
+        fig5.add_trace(go.Scatter(x=ds['Time_x'], y=ds['sp'], name="Separator Pressure",
+                            line_shape='linear'))
+        fig5.add_trace(go.Scatter(x=ds['Time_x'], y=(ds['Pressure[Bar]']*14.5038), name="ForeSite Flow Pressure",
+                            line_shape='spline'))
+        fig5.update_layout(hovermode='x unified',title="Meters Pressure",margin=go.layout.Margin(
+        l=0, #left margin
+        r=0, #right margin
+        b=0, #bottom margin
+        t=40, #top margin
+        ))
+        fig5.update_layout(legend=dict(yanchor="top",y=0.99,xanchor="left",x=0.01)) #to use legend inside of plot
+
+        fig6 = go.Figure()
+        fig6.add_trace(go.Scatter(x=ds['Time_x'], y=ds['gasT'], name="Separator Gas Temperature",
+                            line_shape='linear'))
+        fig6.add_trace(go.Scatter(x=ds['Time_x'], y=ds['Temperature[C]'], name="ForeSite Flow Temperature",
+                            line_shape='spline'))
+        fig6.update_layout(hovermode='x unified',title="Meters Temperature[C]",margin=go.layout.Margin(
+        l=0, #left margin
+        r=0, #right margin
+        b=0, #bottom margin
+        t=40, #top margin
+        ))
+        fig6.update_layout(legend=dict(yanchor="top",y=0.99,xanchor="left",x=0.01)) #to use legend inside of plot
+
 
         # Setting layout of the figure.
         layout = {
@@ -225,13 +313,20 @@ class analyticsView(View):
                         output_type='div')
         plot_div3 = plot({'data': fig3, 'layout': layout}, 
                         output_type='div')
+        plot_div4 = plot({'data': fig4, 'layout': layout}, 
+                        output_type='div')
+        plot_div5 = plot({'data': fig5, 'layout': layout}, 
+                        output_type='div')
+        plot_div6 = plot({'data': fig6, 'layout': layout}, 
+                        output_type='div')
         
         context = {  'plot_div' : plot_div  , 'plot_div2': plot_div2,
-                     'plot_div3': plot_div3 , 'cur':cur, 'cur1':cur1
+                     'plot_div3': plot_div3 , 'plot_div4':plot_div4, 
+                     'plot_div5':plot_div5, 'plot_div6':plot_div6, 
+                     'cur':cur, 'cur1':cur1
                     ,'gassep':gassep , 'gasfsf':gasfsf , 'oilsep':oilsep , 'oilfsf':oilfsf, 'waterfsf':waterfsf, 'watersep':watersep, 
                     'difg':difg,'difw':difw,'difo':difo,
-                    }                                                             
-
+                    }          
         return render(self.request, 'analytics.html', context)
 
 
@@ -258,7 +353,7 @@ class fsfdataView(View):
         water = round(ds24['QwStd[m3/d]'].astype(float).mean(),1)
         whp = round(ds24['WHP'].astype(float).mean(),1)
         wht = round(ds24['WHT'].astype(float).mean(),1)
-        sp = round(ds24['Pressure[Bar]'].astype(float).mean(),1)
+        sp = round(ds24['Pressure[Bar]'].astype(float).mean()*14.5038,1)
         st = round(ds24['Temperature[C]'].astype(float).mean(),1)
         ot = round(ds24['Temperature[C]'].astype(float).mean(),1)
         wc = round(ds24['WWC[%]'].astype(float).mean(),1)
@@ -274,7 +369,7 @@ class fsfdataView(View):
         l=0, #left margin
         r=0, #right margin
         b=0, #bottom margin
-        t=0, #top margin
+        t=40, #top margin
         ))
 
         fig2 = go.Figure()
@@ -287,7 +382,7 @@ class fsfdataView(View):
         l=0, #left margin
         r=0, #right margin
         b=0, #bottom margin
-        t=0, #top margin
+        t=40, #top margin
         ))
 
         fig3 = go.Figure()
@@ -300,7 +395,7 @@ class fsfdataView(View):
         l=0, #left margin
         r=0, #right margin
         b=0, #bottom margin
-        t=0, #top margin
+        t=40, #top margin
         ))
 
         # Setting layout of the figure.
@@ -366,7 +461,7 @@ class sepdataView(View):
         l=0, #left margin
         r=0, #right margin
         b=0, #bottom margin
-        t=0, #top margin
+        t=40, #top margin
         ))
 
         fig2 = go.Figure()
@@ -379,7 +474,7 @@ class sepdataView(View):
         l=0, #left margin
         r=0, #right margin
         b=0, #bottom margin
-        t=0, #top margin
+        t=40, #top margin
         ))
 
         fig3 = go.Figure()
@@ -392,7 +487,7 @@ class sepdataView(View):
         l=0, #left margin
         r=0, #right margin
         b=0, #bottom margin
-        t=0, #top margin
+        t=40, #top margin
         ))
 
         # Setting layout of the figure.
@@ -479,7 +574,7 @@ class realtimeView(View):
         l=0, #left margin
         r=0, #right margin
         b=0, #bottom margin
-        t=0, #top margin
+        t=40, #top margin
         ))
         
         fig2 = go.Figure()
@@ -492,7 +587,7 @@ class realtimeView(View):
         l=0, #left margin
         r=0, #right margin
         b=0, #bottom margin
-        t=0, #top margin
+        t=40, #top margin
         ))
         
         fig3 = go.Figure()
@@ -505,7 +600,7 @@ class realtimeView(View):
         l=0, #left margin
         r=0, #right margin
         b=0, #bottom margin
-        t=0, #top margin
+        t=40, #top margin
         ))
 
         # Setting layout of the figure.
