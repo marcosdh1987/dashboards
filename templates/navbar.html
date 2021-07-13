@@ -51,17 +51,51 @@
 <!-- Navbar -->
   <nav id="main-navbar" class="navbar navbar-expand-lg navbar-light bg-gray fixed-top">
     <!-- Container wrapper -->
+    
     <div class="container-fluid">
       <!-- Toggle button -->
-      <button class="navbar-toggler" type="button" data-mdb-toggle="collapse" data-mdb-target="#sidebarMenu"
-        aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
-        <i class="fas fa-bars"></i>
+      <!-- Collapse -->
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"><i class="fas fa-bars"></i></span>
       </button>
 
       <!-- Brand -->
       <a class="navbar-brand" href="/">
         <img src="{% static 'img/logo2.png' %}" height="50" alt="" loading="lazy" />
       </a>
+
+      <div class="collapse" id="navbarSupportedContent">
+        <!-- Left -->
+        <div class="bg-white p-4">
+          <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+            <li class="nav-item active">
+              <a class="btn btn-primary mb-4 waves-effect" href="/">Home<span class="sr-only">(current)</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="btn btn-primary mb-4 waves-effect" href="/dashboard" target="_blank">Main dashboard</a>
+            </li>
+            <li class="nav-item">
+              <a class="btn btn-primary mb-4 waves-effect" href="/fsfdata"   target="_blank">ForeSite Flow Data</a>
+            </li>
+            <li class="nav-item">
+              <a class="btn btn-primary mb-4 waves-effect" href="/sepdata" target="_blank">Separator Data</a>
+            </li>
+            <li class="nav-item">
+              <a class="btn btn-primary mb-4 waves-effect" href="/analytics" target="_blank">Today Analytics</a>
+            </li>
+            <li class="nav-item">
+              <a class="btn btn-primary mb-4 waves-effect" href="/realtime" target="_blank">Real time Data</a>
+            </li>
+            <li class="nav-item">
+              <a class="btn btn-primary mb-4 waves-effect" href="https://www.weatherford.com/en/products-and-services/production/production-4-0/flow-measurement/" target="_blank">Weatherford foresite flow</a>
+            </li>
+          </ul>
+        </div>  
+      </div>
+
+      
       <!-- Search form -->
 
 
@@ -92,6 +126,10 @@
     <!-- Container wrapper -->
 
   </nav>
+
+  <script type="text/javascript" src="{% static 'js/admin.js' %}"></script>
+
+          
 
   <!-- Navbar -->
 </header>

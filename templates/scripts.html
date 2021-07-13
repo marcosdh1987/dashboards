@@ -1,5 +1,6 @@
 {% load static %}
   
+<script type="text/javascript" src="{% static 'js/admin.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
 <!-- Bootstrap tooltips -->
 <script type="text/javascript" src="{% static 'js/popper.min.js' %}"></script>
@@ -7,6 +8,16 @@
 <script type="text/javascript" src="{% static 'js/bootstrap.min.js' %}"></script>
 <!-- MDB core JavaScript -->
 <script type="text/javascript" src="{% static 'js/mdb.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/mdb.min.js.map' %}"></script>
+
+<script>
+  $("#menu-toggle").click(function(e){
+    e.preventDefault();
+    $("#sidebarMenu").toggleClass("toggled");
+  }
+  
+  );
+</script>
 <!-- Initializations -->
 <script type="text/javascript">
   // Animations initialization
