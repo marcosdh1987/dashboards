@@ -8,12 +8,67 @@
 {% block content %}
 
 {% if request.user.is_authenticated %}
+{% load static %}
+
+<style>
+
+  .image-overlay-wrap {
+  
+    display: inline-block; /* shrinks container to image size */
+    fill: transparent;
+    position: relative;
+    
+    }
+    
+  .image-overlay-wrap img { /* optional, for responsiveness */
+  
+    display: block;
+    height: auto;
+    max-width: 100%;
+    
+    }
+    
+  .image-overlay-wrap svg {
+  
+    left: 0;
+    position: absolute;
+    top: 0;
+    
+    }
+    
+  </style>
 
   <!--Main layout-->
 <main style="margin-top: 58px">
     <div class="container pt-4">
       <!--Section: Performance Analytics -->
       <section class="mb-4">
+        <div class='card'>
+          <div class="card-header text-center py-3">
+            <div class="image-overlay-wrap">
+    
+              <img src="{% static 'img/layout2.JPG' %}" />
+              
+              <svg viewBox="0 0 2000 1353">
+          
+                <!--<polygon stroke="black" fill="black" points="1590,390 1590,650 990,650 990,390 " />-->
+              
+                <a alt="Foresite Flow Data" target="_top" title="About" xlink:href="/fsfdata">
+                
+                  <polygon points="350,15 350,300 770,300 770,15" />
+                  
+                  </a>
+          
+                <a alt="Separator Data" target="_top" title="About" xlink:href="/sepdata">
+                
+                  <polygon points="1590,15 1590,300 990,300 990,15" />
+                    
+                  </a>  
+                  
+                </svg>
+              </div>  
+            </div>
+        </div>
         <div class="card">
           <div class="card-header text-center py-3">
             <h2 class="mb-0 text-center">

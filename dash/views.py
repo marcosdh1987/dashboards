@@ -60,6 +60,8 @@ class HomeView(View):
 
         return render(self.request, 'home.html', context)
 
+
+
 #Main dashboard view, with overall information, based on analytics view
 class dashboardView(View):
     

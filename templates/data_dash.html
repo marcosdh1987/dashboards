@@ -8,12 +8,32 @@
 {% block content %}
 
 {% if request.user.is_authenticated %}
+{% load static %}
+
+
+
+
+
+
 
   <!--Main layout-->
 <main style="margin-top: 58px">
     <div class="container pt-4">
       <!--Section: Performance Analytics -->
       <section class="mb-4">
+        <div class='card'>
+          <div class="card-header text-center py-3">
+            <div class="image-overlay-wrap">
+              {% if cur == 'fsfdata' %}
+              <img src="{% static 'img/fsfmeter.JPG' %}" />
+              {% else %}
+              <img src="{% static 'img/sepmeter.JPG' %}" />
+              {% endif %} 
+            </div>
+          </div>  
+        </div>  
+
+
         <div class="card">
           <div class="card-header text-center py-3">
             <h2 class="mb-0 text-center">
