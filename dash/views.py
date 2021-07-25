@@ -11,6 +11,7 @@ import plotly.express as px
 import pandas as pd
 import numpy as np
 import plotly.figure_factory as ff
+from plotly.subplots import make_subplots
 
 from datetime import datetime, timedelta
 
@@ -96,6 +97,7 @@ class dashboardView(View):
         t=40, #top margin
         ))
         fig.update_layout(legend=dict(yanchor="top",y=0.99,xanchor="left",x=0.01)) #to use legend inside of plot
+        fig.update_yaxes(title_text="<b>Flow Rate</b> (m3/d)")
         
         fig2 = go.Figure()
         fig2.add_trace(go.Scatter(x=ds['Time_x'], y=ds['OilFlowRate'], name="Separator",
@@ -109,6 +111,7 @@ class dashboardView(View):
         t=40, #top margin
         ))
         fig2.update_layout(legend=dict(yanchor="top",y=0.99,xanchor="left",x=0.01)) #to use legend inside of plot
+        fig2.update_yaxes(title_text="<b>Flow Rate</b> (m3/d)")
         
         fig3 = go.Figure()
         fig3.add_trace(go.Scatter(x=ds['Time_x'], y=ds['WaterFlowRate'], name="Separator",
@@ -122,12 +125,14 @@ class dashboardView(View):
         t=40, #top margin
         ))
         fig3.update_layout(legend=dict(yanchor="top",y=0.99,xanchor="left",x=0.01)) #to use legend inside of plot
+        fig3.update_yaxes(title_text="<b>Flow Rate</b> (m3/d)")
         
         fig4 = go.Figure()
+        fig4 = make_subplots(specs=[[{'secondary_y': True}]])
         fig4.add_trace(go.Scatter(x=ds['Time_x'], y=ds['WHP'], name="Well Head Pressure",
-                            line_shape='linear'))
+                            line_shape='linear'), secondary_y=False)
         fig4.add_trace(go.Scatter(x=ds['Time_x'], y=ds['WHT'], name="Well Head Temperature",
-                            line_shape='spline'))
+                            line_shape='spline'), secondary_y=True)
         fig4.update_layout(hovermode='x unified',title="Well Head Pressure & Temperature",margin=go.layout.Margin(
         l=0, #left margin
         r=0, #right margin
@@ -135,6 +140,9 @@ class dashboardView(View):
         t=40, #top margin
         ))
         fig4.update_layout(legend=dict(yanchor="top",y=0.99,xanchor="left",x=0.01)) #to use legend inside of plot
+        # Set y-axes titles
+        fig4.update_yaxes(title_text="<b>Pressure</b> (Psig)", secondary_y=False)
+        fig4.update_yaxes(title_text="<b>Temperature</b> (°C)", secondary_y=True)
 
         fig5 = go.Figure()
         fig5.add_trace(go.Scatter(x=ds['Time_x'], y=ds['sp'], name="Separator Pressure",
@@ -148,6 +156,7 @@ class dashboardView(View):
         t=40, #top margin
         ))
         fig5.update_layout(legend=dict(yanchor="top",y=0.99,xanchor="left",x=0.01)) #to use legend inside of plot
+        fig5.update_yaxes(title_text="<b>Pressure</b> (Psig)")
 
         fig6 = go.Figure()
         fig6.add_trace(go.Scatter(x=ds['Time_x'], y=ds['gasT'], name="Separator Gas Temperature",
@@ -161,6 +170,7 @@ class dashboardView(View):
         t=40, #top margin
         ))
         fig6.update_layout(legend=dict(yanchor="top",y=0.99,xanchor="left",x=0.01)) #to use legend inside of plot
+        fig6.update_yaxes(title_text="<b>Temperature</b> (°C)")
 
 
         # Setting layout of the figure.
@@ -234,6 +244,7 @@ class analyticsView(View):
         t=40, #top margin
         ))
         fig.update_layout(legend=dict(yanchor="top",y=0.99,xanchor="left",x=0.01)) #to use legend inside of plot
+        fig.update_yaxes(title_text="<b>Flow Rate</b> (m3/d)")
         
         fig2 = go.Figure()
         fig2.add_trace(go.Scatter(x=ds['Time_x'], y=ds['OilFlowRate'], name="Separator",
@@ -247,6 +258,7 @@ class analyticsView(View):
         t=40, #top margin
         ))
         fig2.update_layout(legend=dict(yanchor="top",y=0.99,xanchor="left",x=0.01)) #to use legend inside of plot
+        fig2.update_yaxes(title_text="<b>Flow Rate</b> (m3/d)")
         
         fig3 = go.Figure()
         fig3.add_trace(go.Scatter(x=ds['Time_x'], y=ds['WaterFlowRate'], name="Separator",
@@ -260,12 +272,14 @@ class analyticsView(View):
         t=40, #top margin
         ))
         fig3.update_layout(legend=dict(yanchor="top",y=0.99,xanchor="left",x=0.01)) #to use legend inside of plot
-
+        fig3.update_yaxes(title_text="<b>Flow Rate</b> (m3/d)")
+        
         fig4 = go.Figure()
+        fig4 = make_subplots(specs=[[{'secondary_y': True}]])
         fig4.add_trace(go.Scatter(x=ds['Time_x'], y=ds['WHP'], name="Well Head Pressure",
-                            line_shape='linear'))
+                            line_shape='linear'), secondary_y=False)
         fig4.add_trace(go.Scatter(x=ds['Time_x'], y=ds['WHT'], name="Well Head Temperature",
-                            line_shape='spline'))
+                            line_shape='spline'), secondary_y=True)
         fig4.update_layout(hovermode='x unified',title="Well Head Pressure & Temperature",margin=go.layout.Margin(
         l=0, #left margin
         r=0, #right margin
@@ -273,6 +287,9 @@ class analyticsView(View):
         t=40, #top margin
         ))
         fig4.update_layout(legend=dict(yanchor="top",y=0.99,xanchor="left",x=0.01)) #to use legend inside of plot
+        # Set y-axes titles
+        fig4.update_yaxes(title_text="<b>Pressure</b> (Psig)", secondary_y=False)
+        fig4.update_yaxes(title_text="<b>Temperature</b> (°C)", secondary_y=True)
 
         fig5 = go.Figure()
         fig5.add_trace(go.Scatter(x=ds['Time_x'], y=ds['sp'], name="Separator Pressure",
@@ -286,6 +303,7 @@ class analyticsView(View):
         t=40, #top margin
         ))
         fig5.update_layout(legend=dict(yanchor="top",y=0.99,xanchor="left",x=0.01)) #to use legend inside of plot
+        fig5.update_yaxes(title_text="<b>Pressure</b> (Psig)")
 
         fig6 = go.Figure()
         fig6.add_trace(go.Scatter(x=ds['Time_x'], y=ds['gasT'], name="Separator Gas Temperature",
@@ -299,6 +317,7 @@ class analyticsView(View):
         t=40, #top margin
         ))
         fig6.update_layout(legend=dict(yanchor="top",y=0.99,xanchor="left",x=0.01)) #to use legend inside of plot
+        fig6.update_yaxes(title_text="<b>Temperature</b> (°C)")
 
 
         # Setting layout of the figure.
@@ -373,6 +392,7 @@ class fsfdataView(View):
         b=0, #bottom margin
         t=40, #top margin
         ))
+        fig.update_yaxes(title_text="<b>Flow Rate</b> (m3/d)")
 
         fig2 = go.Figure()
         fig2.add_trace(go.Scatter(x=ds24['Time_hs'], y=ds24['QoStd[m3/d]'].astype(float), name="Oil Flow Rate", text='m3/d',
@@ -386,6 +406,7 @@ class fsfdataView(View):
         b=0, #bottom margin
         t=40, #top margin
         ))
+        fig2.update_yaxes(title_text="<b>Flow Rate</b> (m3/d)")
 
         fig3 = go.Figure()
         fig3.add_trace(go.Scatter(x=ds24['Time_hs'], y=ds24['QwStd[m3/d]'].astype(float), name="Water Flow Rate", text='m3/d',
@@ -399,6 +420,25 @@ class fsfdataView(View):
         b=0, #bottom margin
         t=40, #top margin
         ))
+        fig3.update_yaxes(title_text="<b>Flow Rate</b> (m3/d)")
+
+
+        fig4 = go.Figure()
+        fig4 = make_subplots(specs=[[{'secondary_y': True}]])
+        fig4.add_trace(go.Scatter(x=ds24['Time_hs'], y=round(ds24['Pressure[Bar]'].astype(float)*14.5038,2), name="Flow Line Pressure",
+                            line_shape='linear'), secondary_y=False)
+        fig4.add_trace(go.Scatter(x=ds24['Time_hs'], y=round(ds24['Temperature[C]'].astype(float),2), name="Flow Line Temperature",
+                            line_shape='spline'), secondary_y=True)
+        fig4.update_layout(hovermode='x unified',title="Meter Pressure & Temperature",margin=go.layout.Margin(
+        l=0, #left margin
+        r=0, #right margin
+        b=0, #bottom margin
+        t=40, #top margin
+        ))
+        fig4.update_layout(legend=dict(yanchor="top",y=0.99,xanchor="left",x=0.01)) #to use legend inside of plot
+        # Set y-axes titles
+        fig4.update_yaxes(title_text="<b>Pressure</b> (Psig)", secondary_y=False)
+        fig4.update_yaxes(title_text="<b>Temperature</b> (°C)", secondary_y=True)
 
         # Setting layout of the figure.
         layout = {
@@ -414,9 +454,13 @@ class fsfdataView(View):
                         output_type='div')
         plot_div3 = plot({'data': fig3, 'layout': layout}, 
                         output_type='div')
+        plot_div4 = plot({'data': fig4, 'layout': layout}, 
+                        output_type='div')                
+
 
         context = {  'plot_div' : plot_div  , 'plot_div2': plot_div2
-                    ,'plot_div3': plot_div3 , 'cur1':cur1
+                    ,'plot_div3': plot_div3 ,'plot_div4': plot_div4 ,
+                     'cur1':cur1
                     ,'cur':cur,'gas':gas , 'oil':oil , 'water':water
                     ,'whp':whp, 'wht':wht , 'wc':wc , 'gor':gor 
                     ,'sp':sp , 'st':st , 'ot':ot                             
@@ -465,6 +509,7 @@ class sepdataView(View):
         b=0, #bottom margin
         t=40, #top margin
         ))
+        fig.update_yaxes(title_text="<b>Flow Rate</b> (m3/d)")
 
         fig2 = go.Figure()
         fig2.add_trace(go.Scatter(x=ds24['Time_hs'], y=ds24['OilFlowRate'].astype(float), name="Oil Flow Rate", text='m3/d',
@@ -478,6 +523,7 @@ class sepdataView(View):
         b=0, #bottom margin
         t=40, #top margin
         ))
+        fig2.update_yaxes(title_text="<b>Flow Rate</b> (m3/d)")
 
         fig3 = go.Figure()
         fig3.add_trace(go.Scatter(x=ds24['Time_hs'], y=ds24['WaterFlowRate'].astype(float), name="Water Flow Rate", text='m3/d',
@@ -491,6 +537,24 @@ class sepdataView(View):
         b=0, #bottom margin
         t=40, #top margin
         ))
+        fig3.update_yaxes(title_text="<b>Flow Rate</b> (m3/d)")
+
+        fig4 = go.Figure()
+        fig4 = make_subplots(specs=[[{'secondary_y': True}]])
+        fig4.add_trace(go.Scatter(x=ds24['Time_hs'], y=round(ds24['sp'].astype(float),2), name="Separator Gas Pressure",
+                            line_shape='linear'), secondary_y=False)
+        fig4.add_trace(go.Scatter(x=ds24['Time_hs'], y=round(ds24['gasT'].astype(float),2), name="Separator Gas Temperature",
+                            line_shape='spline'), secondary_y=True)
+        fig4.update_layout(hovermode='x unified',title="Separator Pressure & Temperature",margin=go.layout.Margin(
+        l=0, #left margin
+        r=0, #right margin
+        b=0, #bottom margin
+        t=40, #top margin
+        ))
+        fig4.update_layout(legend=dict(yanchor="top",y=0.99,xanchor="left",x=0.01)) #to use legend inside of plot
+        # Set y-axes titles
+        fig4.update_yaxes(title_text="<b>Pressure</b> (Psig)", secondary_y=False)
+        fig4.update_yaxes(title_text="<b>Temperature</b> (°C)", secondary_y=True)
 
         # Setting layout of the figure.
         layout = {
@@ -506,9 +570,12 @@ class sepdataView(View):
                         output_type='div')
         plot_div3 = plot({'data': fig3, 'layout': layout}, 
                         output_type='div')
+        plot_div4 = plot({'data': fig4, 'layout': layout}, 
+                        output_type='div')                
 
         context = {  'plot_div' : plot_div  , 'plot_div2': plot_div2
-                    ,'plot_div3': plot_div3 , 'cur1':cur1
+                    ,'plot_div3': plot_div3 , 'plot_div4': plot_div4,
+                    'cur1':cur1
                     ,'cur':cur,'gas':gas , 'oil':oil , 'water':water
                     ,'whp':whp, 'wht':wht , 'wc':wc , 'gor':gor 
                     ,'sp':sp , 'st':st , 'ot':ot                             
@@ -563,7 +630,7 @@ class realtimeView(View):
         gas = round(flat2['Qg – Standard Conditions'].astype(float).mean(),1)
         oil = round(flat2['Qo – Standard Conditions'].astype(float).mean(),1)
         water = round(flat2['Qw – Standard Conditions'].astype(float).mean(),1)
-        lpress = round(flat2['MVT Static Pressure'].astype(float).mean(),1)
+        lpress = round(flat2['MVT Static Pressure'].astype(float).mean()*14.5038,1)
         ltemp = round(flat2['MVT Temperature'].astype(float).mean(),1)
 
         fig = go.Figure()
@@ -578,6 +645,7 @@ class realtimeView(View):
         b=0, #bottom margin
         t=40, #top margin
         ))
+        fig.update_yaxes(title_text="<b>Flow Rate</b> (m3/d)")
         
         fig2 = go.Figure()
         fig2.add_trace(go.Scatter(x=flat['created_on'], y=flat['Qo – Standard Conditions'].astype(float), name="Oil Flow Rate", text='m3/d',
@@ -591,6 +659,7 @@ class realtimeView(View):
         b=0, #bottom margin
         t=40, #top margin
         ))
+        fig2.update_yaxes(title_text="<b>Flow Rate</b> (m3/d)")
         
         fig3 = go.Figure()
         fig3.add_trace(go.Scatter(x=flat['created_on'], y=flat['Qw – Standard Conditions'].astype(float), name="Water Flow Rate", text='m3/d',
@@ -604,6 +673,24 @@ class realtimeView(View):
         b=0, #bottom margin
         t=40, #top margin
         ))
+        fig3.update_yaxes(title_text="<b>Flow Rate</b> (m3/d)")
+
+        fig4 = go.Figure()
+        fig4 = make_subplots(specs=[[{'secondary_y': True}]])
+        fig4.add_trace(go.Scatter(x=flat['created_on'], y=round(flat['MVT Static Pressure'].astype(float)*14.5038,2), name="Flow Line Pressure",
+                            line_shape='linear'), secondary_y=False)
+        fig4.add_trace(go.Scatter(x=flat['created_on'], y=round(flat['MVT Temperature'].astype(float),2), name="Flow Line Temperature",
+                            line_shape='spline'), secondary_y=True)
+        fig4.update_layout(hovermode='x unified',title="Separator Pressure & Temperature",margin=go.layout.Margin(
+        l=0, #left margin
+        r=0, #right margin
+        b=0, #bottom margin
+        t=40, #top margin
+        ))
+        fig4.update_layout(legend=dict(yanchor="top",y=0.99,xanchor="left",x=0.01)) #to use legend inside of plot
+        # Set y-axes titles
+        fig4.update_yaxes(title_text="<b>Pressure</b> (Psig)", secondary_y=False)
+        fig4.update_yaxes(title_text="<b>Temperature</b> (°C)", secondary_y=True)
 
         # Setting layout of the figure.
         layout = {
@@ -619,9 +706,13 @@ class realtimeView(View):
                         output_type='div')
         plot_div3 = plot({'data': fig3, 'layout': layout}, 
                         output_type='div')
+        plot_div4 = plot({'data': fig4, 'layout': layout}, 
+                        output_type='div')
 
         context = {  'plot_div' : plot_div  , 'plot_div2': plot_div2
-                    ,'plot_div3': plot_div3 , 'cur':cur,  'gas':gas , 'oil':oil , 'water':water , 'lpress':lpress , 'ltemp':ltemp ,                          
+                    ,'plot_div3': plot_div3 , 'plot_div4': plot_div4 ,
+                    
+                    'cur':cur,  'gas':gas , 'oil':oil , 'water':water , 'lpress':lpress , 'ltemp':ltemp ,                          
                     }                                                             
 
         return render(self.request, 'realtimechart.html', context)
