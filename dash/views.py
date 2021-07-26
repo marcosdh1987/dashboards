@@ -623,7 +623,7 @@ class realtimeView(View):
 
         flat = flat.loc[mask]
 
-        mask1 = (flat['created_on'] > (starttime- timedelta(hours=1))) & (flat['created_on'] <= starttime)
+        mask1 = (flat['created_on'] > (starttime- timedelta(hours=2))) & (flat['created_on'] <= starttime)
 
         flat2 = flat.loc[mask1]
 
