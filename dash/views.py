@@ -19,8 +19,8 @@ from django.contrib.staticfiles.storage import staticfiles_storage
 
 #variables and parameters for views
 
-#starttime = datetime.now()
-starttime = pd.to_datetime('2021-07-12 06:00:00')
+starttime = datetime.now()
+#starttime = pd.to_datetime('2021-07-12 06:00:00')
 
 #import for SQL connections
 import pyodbc
@@ -623,7 +623,7 @@ class realtimeView(View):
 
         flat = flat.loc[mask]
 
-        mask1 = (flat['created_on'] > (starttime- timedelta(hours=6))) & (flat['created_on'] <= starttime)
+        mask1 = (flat['created_on'] > (starttime- timedelta(hours=1))) & (flat['created_on'] <= starttime)
 
         flat2 = flat.loc[mask1]
 
