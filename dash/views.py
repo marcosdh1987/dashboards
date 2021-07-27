@@ -620,12 +620,13 @@ class realtimeView(View):
                             for hdr in flat.columns]
 
         mask = (flat['created_on'] > (starttime- timedelta(hours=6))) & (flat['created_on'] <= starttime)
+        flat2 = flat.copy()
 
         flat = flat.loc[mask]
 
-        mask1 = (flat['created_on'] > (starttime- timedelta(hours=6))) & (flat['created_on'] <= starttime)
+        mask1 = (flat2['created_on'] > (starttime- timedelta(hours=1))) & (flat2['created_on'] <= starttime)
 
-        flat2 = flat.loc[mask1]
+        flat2 = flat2.loc[mask1]
 
         gas = round(flat2['Qg – Standard Conditions'].astype(float).mean(),1)
         oil = round(flat2['Qo – Standard Conditions'].astype(float).mean(),1)
