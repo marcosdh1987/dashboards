@@ -72,7 +72,7 @@
         <div class="card">
           <div class="card-header text-center py-3">
             <h2 class="mb-0 text-center">
-              <strong>{{ cur1 }} Performance Analytics </strong>
+              <strong>{{ cur1 }} Performance Analytics </strong> (Well:  BAN-1001)
             </h2>
           </div>
 
@@ -298,6 +298,11 @@
           <div class="card-body">
             {% autoescape off %}
             {{ plot_div }}
+            {% endautoescape %}
+          </div>
+          <div class="card-body">
+            {% autoescape off %}
+            {{ plot_div7 }}
             {% endautoescape %}
           </div>
         </div>

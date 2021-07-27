@@ -90,7 +90,7 @@ class dashboardView(View):
                             line_shape='linear'))
         fig.add_trace(go.Scatter(x=ds['Time_x'], y=ds['QgStd[m3/d]'], name="Foresite Flow",
                             line_shape='spline'))
-        fig.update_layout(hovermode='x unified',title="Gas Flow Rates",margin=go.layout.Margin(
+        fig.update_layout(hovermode='x unified',title="Gas Flow Rates at Standard Condition",margin=go.layout.Margin(
         l=0, #left margin
         r=0, #right margin
         b=0, #bottom margin
@@ -98,6 +98,20 @@ class dashboardView(View):
         ))
         fig.update_layout(legend=dict(yanchor="top",y=0.99,xanchor="left",x=0.01)) #to use legend inside of plot
         fig.update_yaxes(title_text="<b>Flow Rate</b> (m3/d)")
+
+        fig7 = go.Figure()
+        fig7.add_trace(go.Scatter(x=ds['Time_x'], y=ds['Gas Rate Actual'], name="Separator",
+                            line_shape='linear'))
+        fig7.add_trace(go.Scatter(x=ds['Time_x'], y=ds['Qg[m3/d]'], name="Foresite Flow",
+                            line_shape='spline'))
+        fig7.update_layout(hovermode='x unified',title="Gas Flow Rates at Line Condition",margin=go.layout.Margin(
+        l=0, #left margin
+        r=0, #right margin
+        b=0, #bottom margin
+        t=40, #top margin
+        ))
+        fig7.update_layout(legend=dict(yanchor="top",y=0.99,xanchor="left",x=0.01)) #to use legend inside of plot
+        fig7.update_yaxes(title_text="<b>Flow Rate</b> (m3/d)")
         
         fig2 = go.Figure()
         fig2.add_trace(go.Scatter(x=ds['Time_x'], y=ds['OilFlowRate'], name="Separator",
@@ -193,10 +207,12 @@ class dashboardView(View):
                         output_type='div')
         plot_div6 = plot({'data': fig6, 'layout': layout}, 
                         output_type='div')
+        plot_div7 = plot({'data': fig7, 'layout': layout}, 
+                        output_type='div')
         
         context = {  'plot_div' : plot_div  , 'plot_div2': plot_div2,
                      'plot_div3': plot_div3 , 'plot_div4':plot_div4, 
-                     'plot_div5':plot_div5, 'plot_div6':plot_div6, 
+                     'plot_div5':plot_div5, 'plot_div6':plot_div6, 'plot_div7':plot_div7, 
                      'cur':cur, 'cur1':cur1
                     ,'gassep':gassep , 'gasfsf':gasfsf , 'oilsep':oilsep , 'oilfsf':oilfsf, 'waterfsf':waterfsf, 'watersep':watersep, 
                     'difg':difg,'difw':difw,'difo':difo,
@@ -237,14 +253,28 @@ class analyticsView(View):
                             line_shape='linear'))
         fig.add_trace(go.Scatter(x=ds['Time_x'], y=ds['QgStd[m3/d]'], name="Foresite Flow",
                             line_shape='spline'))
-        fig.update_layout(hovermode='x unified',title="Gas Flow Rates",margin=go.layout.Margin(
+        fig.update_layout(hovermode='x unified',title="Gas Flow Rates at Standard Condition",margin=go.layout.Margin(
         l=0, #left margin
         r=0, #right margin
         b=0, #bottom margin
         t=40, #top margin
         ))
         fig.update_layout(legend=dict(yanchor="top",y=0.99,xanchor="left",x=0.01)) #to use legend inside of plot
-        fig.update_yaxes(title_text="<b>Flow Rate</b> (m3/d)")
+        fig.update_yaxes(title_text="<b>Flow Rate</b> (Sm3/d)")
+
+        fig7 = go.Figure()
+        fig7.add_trace(go.Scatter(x=ds['Time_x'], y=ds['Gas Rate Actual'], name="Separator",
+                            line_shape='linear'))
+        fig7.add_trace(go.Scatter(x=ds['Time_x'], y=ds['Qg[m3/d]'], name="Foresite Flow",
+                            line_shape='spline'))
+        fig7.update_layout(hovermode='x unified',title="Gas Flow Rates at Line Condition",margin=go.layout.Margin(
+        l=0, #left margin
+        r=0, #right margin
+        b=0, #bottom margin
+        t=40, #top margin
+        ))
+        fig7.update_layout(legend=dict(yanchor="top",y=0.99,xanchor="left",x=0.01)) #to use legend inside of plot
+        fig7.update_yaxes(title_text="<b>Flow Rate</b> (m3/d)")
         
         fig2 = go.Figure()
         fig2.add_trace(go.Scatter(x=ds['Time_x'], y=ds['OilFlowRate'], name="Separator",
@@ -340,10 +370,12 @@ class analyticsView(View):
                         output_type='div')
         plot_div6 = plot({'data': fig6, 'layout': layout}, 
                         output_type='div')
+        plot_div7 = plot({'data': fig7, 'layout': layout}, 
+                        output_type='div')
         
         context = {  'plot_div' : plot_div  , 'plot_div2': plot_div2,
                      'plot_div3': plot_div3 , 'plot_div4':plot_div4, 
-                     'plot_div5':plot_div5, 'plot_div6':plot_div6, 
+                     'plot_div5':plot_div5, 'plot_div6':plot_div6, 'plot_div7':plot_div7, 
                      'cur':cur, 'cur1':cur1
                     ,'gassep':gassep , 'gasfsf':gasfsf , 'oilsep':oilsep , 'oilfsf':oilfsf, 'waterfsf':waterfsf, 'watersep':watersep, 
                     'difg':difg,'difw':difw,'difo':difo,
@@ -370,6 +402,7 @@ class fsfdataView(View):
         ds24 = ds4.loc[mask]
 
         gas = round(ds24['QgStd[m3/d]'].astype(float).mean(),1)
+        gasact = round(ds24['Qg[m3/d]'].astype(float).mean(),1)
         oil = round(ds24['QoStd[m3/d]'].astype(float).mean(),1)
         water = round(ds24['QwStd[m3/d]'].astype(float).mean(),1)
         whp = round(ds24['WHP'].astype(float).mean(),1)
@@ -461,7 +494,7 @@ class fsfdataView(View):
         context = {  'plot_div' : plot_div  , 'plot_div2': plot_div2
                     ,'plot_div3': plot_div3 ,'plot_div4': plot_div4 ,
                      'cur1':cur1
-                    ,'cur':cur,'gas':gas , 'oil':oil , 'water':water
+                    ,'cur':cur,'gas':gas , 'gasact':gasact ,'oil':oil , 'water':water
                     ,'whp':whp, 'wht':wht , 'wc':wc , 'gor':gor 
                     ,'sp':sp , 'st':st , 'ot':ot                             
                     }                                                            
@@ -487,6 +520,7 @@ class sepdataView(View):
         ds24 = ds4.loc[mask]
 
         gas = round(ds24['GasFlowRate'].astype(float).mean(),1)
+        gasact = round(ds24['Gas Rate Actual'].astype(float).mean(),1)
         oil = round(ds24['OilFlowRate'].astype(float).mean(),1)
         water = round(ds24['WaterFlowRate'].astype(float).mean(),1)
         whp = round(ds24['WHP'].astype(float).mean(),1)
@@ -576,7 +610,7 @@ class sepdataView(View):
         context = {  'plot_div' : plot_div  , 'plot_div2': plot_div2
                     ,'plot_div3': plot_div3 , 'plot_div4': plot_div4,
                     'cur1':cur1
-                    ,'cur':cur,'gas':gas , 'oil':oil , 'water':water
+                    ,'cur':cur,'gas':gas , 'gasact':gasact ,'oil':oil , 'water':water
                     ,'whp':whp, 'wht':wht , 'wc':wc , 'gor':gor 
                     ,'sp':sp , 'st':st , 'ot':ot                             
                     }                                                               
@@ -633,6 +667,9 @@ class realtimeView(View):
         water = round(flat2['Qw – Standard Conditions'].astype(float).mean(),1)
         lpress = round(flat2['MVT Static Pressure'].astype(float).mean()*14.5038,1)
         ltemp = round(flat2['MVT Temperature'].astype(float).mean(),1)
+        gasact = round(flat2['Qg – Line Conditions'].astype(float).mean(),1)
+        gvf = round(flat2['GVF'].astype(float).mean(),1)
+        wlr = round(flat2['Water Cut'].astype(float).mean(),1)
 
         fig = go.Figure()
         fig.add_trace(go.Scatter(x=flat['created_on'], y=flat['Qg – Standard Conditions'].astype(float), name="Gas Flow Rate", text='m3/d',
@@ -712,7 +749,7 @@ class realtimeView(View):
 
         context = {  'plot_div' : plot_div  , 'plot_div2': plot_div2
                     ,'plot_div3': plot_div3 , 'plot_div4': plot_div4 ,
-                    
+                    'gasact':gasact ,'gvf':gvf ,'wlr':wlr ,
                     'cur':cur,  'gas':gas , 'oil':oil , 'water':water , 'lpress':lpress , 'ltemp':ltemp ,                          
                     }                                                             
 

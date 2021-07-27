@@ -37,7 +37,7 @@
         <div class="card">
           <div class="card-header text-center py-3">
             <h2 class="mb-0 text-center">
-              <strong>{{ cur1 }} Well Test Information </strong>
+              <strong>{{ cur1 }} Well Test Information </strong> (Last 24hs)
             </h2>
           </div>
 
@@ -90,7 +90,7 @@
             <div class="col-xl-4 col-md-6 mb-4">
               <div class="card">
                 <div class="card-body">
-                  <h6>Static Pressure (Psig)</h6>
+                  <h6>Flow Line Pressure (Psig)</h6>
                   <div class="d-flex justify-content-between p-md-1">
                     <div class="d-flex flex-row">
                       <div class="align-self-center">
@@ -108,7 +108,7 @@
             <div class="col-xl-4 col-md-6 mb-4">
               <div class="card">
                 <div class="card-body">
-                  <h6>Static Temperature (°C)</h6>
+                  <h6>Gas Temperature (°C)</h6>
                   <div class="d-flex justify-content-between p-md-1">
                     <div class="d-flex flex-row">
                       <div class="align-self-center">
@@ -188,6 +188,26 @@
                   </div>
                 </div>
               </div>
+
+              <div class="col-xl-4 col-md-6 mb-4">
+                <div class="card">
+                  <div class="card-body">
+                    <h6>Gas Flow Rate Actual (m3/d)</h6>
+                    <div class="d-flex justify-content-between p-md-1">
+                      
+                      <div class="d-flex flex-row">
+                        <div class="align-self-center">
+                          <h2 class="h1 mb-0 me-4">{{ gasact }}</h2>
+                        </div>
+                      </div>
+                        <div class="align-self-center">
+                          <i class="fas fa-chart-line text-warning fa-3x"></i>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>  
+            
                           
           </div>
 
@@ -196,7 +216,7 @@
             <div class="col-xl-4 col-md-6 mb-4">
               <div class="card">
                 <div class="card-body">
-                  <h6>Gas Flow Rate (m3/d)</h6>
+                  <h6>Gas Flow Rate (Sm3/d)</h6>
                   <div class="d-flex justify-content-between p-md-1">
                     <div class="d-flex flex-row">
                       <div class="align-self-center">
