@@ -627,11 +627,11 @@ class realtimeView(View):
 
         flat2 = flat.loc[mask1]
 
-        gas = round(flat2['Qg – Standard Conditions'].astype(float).mean(),1)
-        oil = round(flat2['Qo – Standard Conditions'].astype(float).mean(),1)
-        water = round(flat2['Qw – Standard Conditions'].astype(float).mean(),1)
-        lpress = round(flat2['MVT Static Pressure'].astype(float).mean()*14.5038,1)
-        ltemp = round(flat2['MVT Temperature'].astype(float).mean(),1)
+        gas = flat2['Qg – Standard Conditions'].astype(float).mean().round(1)
+        oil = flat2['Qo – Standard Conditions'].astype(float).mean().round(1)
+        water = flat2['Qw – Standard Conditions'].astype(float).mean().round(1)
+        lpress = (flat2['MVT Static Pressure'].astype(float).mean()*14.5038).round(1)
+        ltemp = flat2['MVT Temperature'].astype(float).mean().round(1)
 
         fig = go.Figure()
         fig.add_trace(go.Scatter(x=flat['created_on'], y=flat['Qg – Standard Conditions'].astype(float), name="Gas Flow Rate", text='m3/d',
