@@ -719,7 +719,7 @@ class realtimeView(View):
                             line_shape='linear'), secondary_y=False)
         fig4.add_trace(go.Scatter(x=flat['created_on'], y=round(flat['MVT Temperature'].astype(float),2), name="Flow Line Temperature",
                             line_shape='spline'), secondary_y=True)
-        fig4.update_layout(hovermode='x unified',title="Separator Pressure & Temperature",margin=go.layout.Margin(
+        fig4.update_layout(hovermode='x unified',title="Pressure & Temperature",margin=go.layout.Margin(
         l=0, #left margin
         r=0, #right margin
         b=0, #bottom margin
