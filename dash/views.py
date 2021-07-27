@@ -619,12 +619,12 @@ class realtimeView(View):
         flat.columns = [hdr.replace("('value', '", "").replace("')", "") \
                             for hdr in flat.columns]
 
-        mask = (flat['created_on'] > (starttime- timedelta(hours=6))) & (flat['created_on'] <= starttime)
+        mask = (flat['created_on'] > (starttime- timedelta(hours=12))) & (flat['created_on'] <= starttime)
         flat2 = flat.copy()
 
         flat = flat.loc[mask]
 
-        mask1 = (flat2['created_on'] > (starttime- timedelta(hours=1))) & (flat2['created_on'] <= starttime)
+        mask1 = (flat2['created_on'] > (starttime- timedelta(hours=4))) & (flat2['created_on'] <= starttime)
 
         flat2 = flat2.loc[mask1]
 
