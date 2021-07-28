@@ -84,6 +84,9 @@ class dashboardView(View):
         watersep = ds['WaterFlowRate'].mean().round(1)
         waterfsf = ds['QwStd[m3/d]'].mean().round(1)
         difw = (100*(watersep - waterfsf) / watersep).mean().round(2)
+        liqfsf = round(ds['QlStd[m3/d]'].mean(),1)
+        liqsep = round(oilsep + watersep,1)
+        difl = round((100*(liqsep - liqfsf) / liqsep).mean(),2)
 
         fig = go.Figure()
         fig.add_trace(go.Scatter(x=ds['Time_x'], y=ds['GasFlowRate'], name="Separator",
@@ -213,7 +216,7 @@ class dashboardView(View):
         context = {  'plot_div' : plot_div  , 'plot_div2': plot_div2,
                      'plot_div3': plot_div3 , 'plot_div4':plot_div4, 
                      'plot_div5':plot_div5, 'plot_div6':plot_div6, 'plot_div7':plot_div7, 
-                     'cur':cur, 'cur1':cur1
+                     'cur':cur, 'cur1':cur1,'liqfsf':liqfsf,'liqsep':liqsep ,'difl':difl
                     ,'gassep':gassep , 'gasfsf':gasfsf , 'oilsep':oilsep , 'oilfsf':oilfsf, 'waterfsf':waterfsf, 'watersep':watersep, 
                     'difg':difg,'difw':difw,'difo':difo,
                     }                                                            
@@ -247,6 +250,9 @@ class analyticsView(View):
         watersep = round(ds['WaterFlowRate'].mean(),1)
         waterfsf = round(ds['QwStd[m3/d]'].mean(),1)
         difw = round((100*(watersep - waterfsf) / watersep).mean(),2)
+        liqfsf = round(ds['QlStd[m3/d]'].mean(),1)
+        liqsep = round(oilsep + watersep,1)
+        difl = round((100*(liqsep - liqfsf) / liqsep).mean(),2)
 
         fig = go.Figure()
         fig.add_trace(go.Scatter(x=ds['Time_x'], y=ds['GasFlowRate'], name="Separator",
@@ -376,9 +382,9 @@ class analyticsView(View):
         context = {  'plot_div' : plot_div  , 'plot_div2': plot_div2,
                      'plot_div3': plot_div3 , 'plot_div4':plot_div4, 
                      'plot_div5':plot_div5, 'plot_div6':plot_div6, 'plot_div7':plot_div7, 
-                     'cur':cur, 'cur1':cur1
+                     'cur':cur, 'cur1':cur1, 'liqfsf':liqfsf,'liqsep':liqsep ,'difl':difl
                     ,'gassep':gassep , 'gasfsf':gasfsf , 'oilsep':oilsep , 'oilfsf':oilfsf, 'waterfsf':waterfsf, 'watersep':watersep, 
-                    'difg':difg,'difw':difw,'difo':difo,
+                    'difg':difg,'difw':difw,'difo':difo
                     }          
         return render(self.request, 'analytics.html', context)
 
