@@ -164,7 +164,7 @@ class dashboardView(View):
         fig5 = go.Figure()
         fig5.add_trace(go.Scatter(x=ds['Time_x'], y=ds['sp'], name="Separator Pressure",
                             line_shape='linear'))
-        fig5.add_trace(go.Scatter(x=ds['Time_x'], y=(ds['Pressure[Bar]']*14.5038), name="ForeSite Flow Pressure",
+        fig5.add_trace(go.Scatter(x=ds['Time_x'], y=((ds['Pressure[Bar]']*14.5038)-14.7), name="ForeSite Flow Pressure",
                             line_shape='spline'))
         fig5.update_layout(hovermode='x unified',title="Meters Pressure",margin=go.layout.Margin(
         l=0, #left margin
@@ -330,7 +330,7 @@ class analyticsView(View):
         fig5 = go.Figure()
         fig5.add_trace(go.Scatter(x=ds['Time_x'], y=ds['sp'], name="Separator Pressure",
                             line_shape='linear'))
-        fig5.add_trace(go.Scatter(x=ds['Time_x'], y=(ds['Pressure[Bar]']*14.5038), name="ForeSite Flow Pressure",
+        fig5.add_trace(go.Scatter(x=ds['Time_x'], y=((ds['Pressure[Bar]']*14.5038)-14.7), name="ForeSite Flow Pressure",
                             line_shape='spline'))
         fig5.update_layout(hovermode='x unified',title="Meters Pressure",margin=go.layout.Margin(
         l=0, #left margin
@@ -413,7 +413,7 @@ class fsfdataView(View):
         water = round(ds24['QwStd[m3/d]'].astype(float).mean(),1)
         whp = round(ds24['WHP'].astype(float).mean(),1)
         wht = round(ds24['WHT'].astype(float).mean(),1)
-        sp = round(ds24['Pressure[Bar]'].astype(float).mean()*14.5038,1)
+        sp = round((ds24['Pressure[Bar]'].astype(float).mean()*14.5038)-14.7,1)
         st = round(ds24['Temperature[C]'].astype(float).mean(),1)
         ot = round(ds24['Temperature[C]'].astype(float).mean(),1)
         wc = round(ds24['WWC[%]'].astype(float).mean(),1)
@@ -464,7 +464,7 @@ class fsfdataView(View):
 
         fig4 = go.Figure()
         fig4 = make_subplots(specs=[[{'secondary_y': True}]])
-        fig4.add_trace(go.Scatter(x=ds24['Time_hs'], y=round(ds24['Pressure[Bar]'].astype(float)*14.5038,2), name="Flow Line Pressure",
+        fig4.add_trace(go.Scatter(x=ds24['Time_hs'], y=round((ds24['Pressure[Bar]'].astype(float)*14.5038)-14.7,2), name="Flow Line Pressure",
                             line_shape='linear'), secondary_y=False)
         fig4.add_trace(go.Scatter(x=ds24['Time_hs'], y=round(ds24['Temperature[C]'].astype(float),2), name="Flow Line Temperature",
                             line_shape='spline'), secondary_y=True)
@@ -671,7 +671,7 @@ class realtimeView(View):
         gas = round(flat2['Qg – Standard Conditions'].astype(float).mean(),1)
         oil = round(flat2['Qo – Standard Conditions'].astype(float).mean(),1)
         water = round(flat2['Qw – Standard Conditions'].astype(float).mean(),1)
-        lpress = round(flat2['MVT Static Pressure'].astype(float).mean()*14.5038,1)
+        lpress = round((flat2['MVT Static Pressure'].astype(float).mean()*14.5038)-14.7,1)
         ltemp = round(flat2['MVT Temperature'].astype(float).mean(),1)
         gasact = round(flat2['Qg – Line Conditions'].astype(float).mean(),1)
         gvf = round(flat2['GVF'].astype(float).mean(),1)
@@ -721,7 +721,7 @@ class realtimeView(View):
 
         fig4 = go.Figure()
         fig4 = make_subplots(specs=[[{'secondary_y': True}]])
-        fig4.add_trace(go.Scatter(x=flat['created_on'], y=round(flat['MVT Static Pressure'].astype(float)*14.5038,2), name="Flow Line Pressure",
+        fig4.add_trace(go.Scatter(x=flat['created_on'], y=round((flat['MVT Static Pressure'].astype(float)*14.5038)-14.7,2), name="Flow Line Pressure",
                             line_shape='linear'), secondary_y=False)
         fig4.add_trace(go.Scatter(x=flat['created_on'], y=round(flat['MVT Temperature'].astype(float),2), name="Flow Line Temperature",
                             line_shape='spline'), secondary_y=True)
