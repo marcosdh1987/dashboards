@@ -75,18 +75,22 @@ class dashboardView(View):
         
         ds = pd.read_csv(url)
 
-        gassep = ds['GasFlowRate'].mean().round(1)
-        gasfsf = ds['QgStd[m3/d]'].mean().round(1)
-        difg = (100*(gassep - gasfsf)/gassep).mean().round(2)
-        oilsep = ds['OilFlowRate'].mean().round(1)
-        oilfsf = ds['QoStd[m3/d]'].mean().round(1)
-        difo = (100*(oilsep - oilfsf)/oilsep).mean().round(2)
-        watersep = ds['WaterFlowRate'].mean().round(1)
-        waterfsf = ds['QwStd[m3/d]'].mean().round(1)
-        difw = (100*(watersep - waterfsf) / watersep).mean().round(2)
+        print(ds.head())
+
+        gassep = round(ds['GasFlowRate'].mean(),1)
+        gasfsf = round(ds['QgStd[m3/d]'].mean(),1)
+        difg = round((100*(gassep - gasfsf)/gassep),2)
+        oilsep = round(ds['OilFlowRate'].mean(),1)
+        oilfsf = round(ds['QoStd[m3/d]'].mean(),1)
+        difo = round((100*(oilsep - oilfsf)/oilsep),2)
+        watersep = round(ds['WaterFlowRate'].mean(),1)
+        waterfsf = round(ds['QwStd[m3/d]'].mean(),1)
+        difw = round((100*(watersep - waterfsf) / watersep),2)
         liqfsf = round(ds['QlStd[m3/d]'].mean(),1)
         liqsep = round(oilsep + watersep,1)
-        difl = round((100*(liqsep - liqfsf) / liqsep).mean(),2)
+        difl = round((100*(liqsep - liqfsf) / liqsep),2)
+
+        
 
         fig = go.Figure()
         fig.add_trace(go.Scatter(x=ds['Time_x'], y=ds['GasFlowRate'], name="Separator",

@@ -1,3 +1,23 @@
 source ./venv/bin/activate
 
 uwsgi --ini dashboards_uwsgi.ini
+
+
+
+
+
+
+
+
+
+
+Download git-lfs by following the steps based on your operating system.
+
+Debian / Ubuntu
+
+$ curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | sudo bash
+$ sudo apt-get install git-lfs
+MacOS (Using Homebrew)
+
+$ brew update
+$ brew install git-lfs
