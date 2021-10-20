@@ -49,7 +49,7 @@ ipaddress=POSTGRES_ADDRESS,
 port=POSTGRES_PORT,
 dbname=POSTGRES_DBNAME))
 
-url = 'static/ds/compared_data_full2.csv'    # to read files from static folder
+url = 'static/ds/compared_data_full.parquet'    # to read files from static folder
 
 
 #the default view
@@ -74,7 +74,7 @@ class dashboardView(View):
         
         #url = 'static/ds/compared_data_full.csv'    # to read files from static folder
         
-        ds = pd.read_csv(url)
+        ds = pd.read_parquet(url)
 
         print(ds.head())
 
@@ -238,7 +238,7 @@ class analyticsView(View):
         
         #url = 'static/ds/compared_data_full.csv'    # to read files from static folder 
         
-        ds = pd.read_csv(url)
+        ds = pd.read_parquet(url)
 
         ds['Time_hs'] = pd.to_datetime(ds['Time_hs'])
 
@@ -404,7 +404,7 @@ class fsfdataView(View):
         
         #url4 = 'static/ds/compared_data_full.csv'   # to read files from static folder 
 
-        ds4 = pd.read_csv(url)
+        ds4 = pd.read_parquet(url)
 
         ds4['Time_hs'] = pd.to_datetime(ds4['Time_hs'])
 
@@ -522,7 +522,7 @@ class sepdataView(View):
     
         #url = 'static/ds/compared_data_full.csv'
         
-        ds4 = pd.read_csv(url)
+        ds4 = pd.read_parquet(url)
 
         ds4['Time_hs'] = pd.to_datetime(ds4['Time_hs'])
 
