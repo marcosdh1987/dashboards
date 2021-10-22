@@ -75,8 +75,13 @@ class dashboardView(View):
         #url = 'static/ds/compared_data_full.csv'    # to read files from static folder
         
         ds = pd.read_parquet(url)
+        ds['Time_hs'] = pd.to_datetime(ds['Time_hs'])
 
-        print(ds.head())
+        mask = (ds['Time_hs'] > (starttime- timedelta(days=30))) & (ds['Time_hs'] <= starttime)
+
+        ds = ds.loc[mask]
+
+        #print(ds.head())
 
         gassep = round(ds['GasFlowRate'].mean(),1)
         gasfsf = round(ds['QgStd[m3/d]'].mean(),1)
