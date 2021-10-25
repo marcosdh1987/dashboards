@@ -4,6 +4,7 @@
 
 
 ## instalacion 
+to start get the repo in your local file
 
 git clone url
 
@@ -24,12 +25,18 @@ source venv/bin/activate
 pip install -r requirements.txt
 
 pip install django-allauth
+
 pip install django-crispy-forms
+
 pip install django-widget-tweaks
+
 pip install plotly
+
 pip install pandas
 
 ### 
+
+To run de aplicacion in a dev mode (use debug = true)
 
 python manage.py runserver
 
