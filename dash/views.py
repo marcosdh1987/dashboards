@@ -18,9 +18,9 @@ from datetime import datetime, timedelta
 from django.contrib.staticfiles.storage import staticfiles_storage
 
 #variables and parameters for views
-
-starttime = datetime.now()
-#starttime = pd.to_datetime('2021-07-12 06:00:00')
+#time to dinamic update
+#starttime = datetime.now()
+starttime = pd.to_datetime('2021-10-21 06:00:00')
 
 #import for SQL connections
 import pyodbc
@@ -90,7 +90,8 @@ class dashboardView(View):
         oilfsf = round(ds['QoStd[m3/d]'].mean(),1)
         difo = round((100*(oilsep - oilfsf)/oilsep),2)
         watersep = round(ds['WaterFlowRate'].mean(),1)
-        waterfsf = round(ds['QwStd[m3/d]'].mean(),1)
+        waterfsf = round(ds['QwStd[m3/d]'].mean()/1.67,1)
+        ds['QwStd[m3/d]'] = ds['QwStd[m3/d]'] /1.67
         difw = round((100*(watersep - waterfsf) / watersep),2)
         liqfsf = round(ds['QlStd[m3/d]'].mean(),1)
         liqsep = round(oilsep + watersep,1)
@@ -258,7 +259,8 @@ class analyticsView(View):
         oilfsf = round(ds['QoStd[m3/d]'].mean(),1)
         difo = round((100*(oilsep - oilfsf)/oilsep).mean(),2)
         watersep = round(ds['WaterFlowRate'].mean(),1)
-        waterfsf = round(ds['QwStd[m3/d]'].mean(),1)
+        waterfsf = round(ds['QwStd[m3/d]'].mean() /1.67,1)
+        ds['QwStd[m3/d]'] = ds['QwStd[m3/d]'] /1.67
         difw = round((100*(watersep - waterfsf) / watersep).mean(),2)
         liqfsf = round(ds['QlStd[m3/d]'].mean(),1)
         liqsep = round(oilsep + watersep,1)
@@ -420,7 +422,8 @@ class fsfdataView(View):
         gas = round(ds24['QgStd[m3/d]'].astype(float).mean(),1)
         gasact = round(ds24['Qg[m3/d]'].astype(float).mean(),1)
         oil = round(ds24['QoStd[m3/d]'].astype(float).mean(),1)
-        water = round(ds24['QwStd[m3/d]'].astype(float).mean(),1)
+        water = round(ds24['QwStd[m3/d]'].mean() /1.67,1)
+        ds24['QwStd[m3/d]'] = ds24['QwStd[m3/d]'] /1.67
         whp = round(ds24['WHP'].astype(float).mean(),1)
         wht = round(ds24['WHT'].astype(float).mean(),1)
         sp = round((ds24['Pressure[Bar]'].astype(float).mean()*14.5038)-14.7,1)
