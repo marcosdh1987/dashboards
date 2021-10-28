@@ -20,7 +20,7 @@ from django.contrib.staticfiles.storage import staticfiles_storage
 #variables and parameters for views
 #time to dinamic update
 #starttime = datetime.now()
-starttime = pd.to_datetime('2021-10-21 06:00:00')
+starttime = pd.to_datetime('2021-10-23 06:00:00')
 
 #import for SQL connections
 import pyodbc
